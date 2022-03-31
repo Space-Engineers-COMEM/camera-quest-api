@@ -14,7 +14,7 @@ If you contribute to this project, please follow those guidelines.
 
 ### Formatting
 
-We use [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/) to enforce a consistent coding style. If you're using VSCode, have look at the extensions. Check the config file [`.eslintrc.js`](./.eslintrc.js) for more information.
+We use [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/) to enforce a consistent coding style. Have a look at the corresponding extensions for your editor. Check the [`.eslintrc.json`](./.eslintrc.js) and [`.prettierrc`](./.prettierrc) for more information.
 
 ### Git workflow
 
