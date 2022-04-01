@@ -1,8 +1,22 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import Database from '@ioc:Adonis/Lucid/Database';
+import User from 'App/Models/User';
 
 export default class UsersController {
   public async index() {
-    return await Database.from('users').select('*');
+    return await User.all();
+  }
+
+  public async show({ params }) {
+    return await User.findOrFail(params.id);
+  }
+
+  public async store({ request }) {
+    const user = await User.findOrFail(request.id);
+    return await user.save();
+  }
+
+  public async destroy({ request }) {
+    const user = await User.findOrFail(request.id);
+    return await user.delete();
   }
 }
