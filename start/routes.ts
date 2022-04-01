@@ -22,5 +22,17 @@ import Database from '@ioc:Adonis/Lucid/Database';
 import Route from '@ioc:Adonis/Core/Route';
 
 Route.get('/', async () => {
+  return 'Entry point';
+});
+
+Route.get('/users', async () => {
   return Database.from('users').select('*');
+});
+
+Route.post('/users', async ({ request }) => {
+  await Database.table('users').insert({ name: request.input('name') });
+});
+
+Route.delete('/users', async ({ request }) => {
+  await Database.from('users').where('id', request.input('id')).delete();
 });
