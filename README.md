@@ -1,12 +1,25 @@
 # Camera Quest API
+
 The API for the Camera Quest API
 
 ## Getting started
+
+Install the node modules and run a server:
 
 ```shell
 npm install
 npm run dev
 ```
+
+We use MySQL for the database, so start a server on your machine, duplicate `.env.example` file to `.env` and change the file according to your needs.
+
+You can start a new database from scratch and fill it with data by running the seeders:
+
+```shell
+node ace migration:fresh --seed
+```
+
+_Learn more about migration on the [Adonis documentation](https://docs.adonisjs.com/guides/database/migrations#document)_
 
 ## Contributing
 
@@ -22,8 +35,7 @@ We use [ESLint](https://eslint.org/), [Prettier](https://prettier.io/) and [Edit
 
 When you commit, write it so it describes what the commit do. It should begin with a verb. To make this easy, always think as the followint of the sentence "This commit…".
 
-> Examples:<br>
-> `Add POST User`, `Fix issue #123`, `Update README.md`, …
+> Examples:<br> > `Add POST User`, `Fix issue #123`, `Update README.md`, …
 
 **Branches**
 
@@ -32,15 +44,16 @@ If you want to work on something new, follow this workflow. Keep the `main` bran
 > If you want to work on an issue, please check the issue workflow below.
 
 1. **Create a new branch** and follow the naming convention: `<type>/<name>`.<br>
-The "type" can be one of the following: <br>`feat`, `fix`, `test`, `docs`.
+   The "type" can be one of the following: <br>`feat`, `fix`, `test`, `docs`.
 2. **Add your changes** to the branch.<br>
    If you want, you can also pull your branch to the remote repository or change branches to work on something else if: just make sure your work is committed or stashed.
-3. When you're done, **switch to the `main` branch and pull** the new changes. 
+3. When you're done, **switch to the `main` branch and pull** the new changes.
 4. **Merge** your branch to `main`, test your code.
 5. **Push** the changes.
 6. **Delete** the branch from the remote, if you don't need it anymore.
 
 > Example:
+>
 > 1. `git checkout -b feat/post-user`
 > 2. `git commit -a -m "Add POST User"`
 > 3. `git checkout main && git pull`
