@@ -25,9 +25,7 @@ Route.get('/', async () => {
   return 'Entry point';
 });
 
-Route.get('/users', async () => {
-  return Database.from('users').select('*');
-});
+Route.get('/users', 'UsersController.index');
 
 Route.post('/users', async ({ request }) => {
   await Database.table('users').insert({ name: request.input('name') });
@@ -36,3 +34,5 @@ Route.post('/users', async ({ request }) => {
 Route.delete('/users', async ({ request }) => {
   await Database.from('users').where('id', request.input('id')).delete();
 });
+
+// Route.resource('/ressource/users', 'UserController');
