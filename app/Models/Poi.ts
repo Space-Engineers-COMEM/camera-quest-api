@@ -1,5 +1,6 @@
 import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm';
 import Ressource from 'App/Models/Ressource';
+import Translation from './Translation';
 
 export default class Poi extends BaseModel {
   @column({ isPrimary: true })
@@ -27,4 +28,8 @@ export default class Poi extends BaseModel {
     foreignKey: 'id_poi',
   })
   public ressources: HasMany<typeof Ressource>;
+  @hasMany(() => Translation, {
+    foreignKey: 'id_poi',
+  })
+  public translation: HasMany<typeof Translation>;
 }
