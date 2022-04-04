@@ -7,4 +7,7 @@ export default class Translation extends BaseModel {
 
   @column()
   public value: string;
+
+  @column()
+  public id_poi: number;
 }

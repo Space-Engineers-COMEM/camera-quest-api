@@ -28,6 +28,7 @@ export default class Poi extends BaseModel {
     foreignKey: 'id_poi',
   })
   public ressources: HasMany<typeof Ressource>;
+
   @hasMany(() => Translation, {
     foreignKey: 'id_poi',
   })

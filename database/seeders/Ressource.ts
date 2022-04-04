@@ -7,6 +7,7 @@ export default class RessourceSeeder extends BaseSeeder {
       {
         url: 'https.//test.com',
         type: 'audio',
+        id_poi: 1,
       },
     ]);
   }

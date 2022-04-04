@@ -7,7 +7,13 @@ export default class Ressources extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.string('url').notNullable().primary();
       table.string('type').notNullable();
-      table.integer('id_poi').notNullable().unsigned().references('pois.id').onDelete('CASCADE');
+      table
+        .integer('id_poi')
+        .notNullable()
+        .unsigned()
+        .references('pois.id')
+        .onDelete('CASCADE')
+        .defaultTo(0);
       table.timestamps(true, true);
     });
   }
