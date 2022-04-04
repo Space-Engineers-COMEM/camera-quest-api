@@ -1,6 +1,7 @@
-import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm';
+import { BaseModel, column, hasMany, HasMany, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm';
 import Ressource from 'App/Models/Ressource';
 import Translation from './Translation';
+import Tag from './Tag';
 
 export default class Poi extends BaseModel {
   @column({ isPrimary: true })
@@ -33,4 +34,9 @@ export default class Poi extends BaseModel {
     foreignKey: 'id_poi',
   })
   public translation: HasMany<typeof Translation>;
+
+  @manyToMany(() => Tag, {
+    pivotTable: 'tag_pois',
+  })
+  public tag: ManyToMany<typeof Tag>;
 }
