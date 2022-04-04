@@ -6,7 +6,4 @@ export default class Ressource extends BaseModel {
 
   @column()
   public type: string;
-
-  @column({})
-  public id_poi: number;
 }

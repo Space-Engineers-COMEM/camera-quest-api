@@ -1,4 +1,5 @@
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm';
+import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm';
+import Ressource from 'App/Models/Ressource';
 
 export default class Poi extends BaseModel {
   @column({ isPrimary: true })
@@ -21,4 +22,9 @@ export default class Poi extends BaseModel {
 
   @column()
   public visible: boolean;
+
+  @hasMany(() => Ressource, {
+    foreignKey: 'id_poi',
+  })
+  public ressources: HasMany<typeof Ressource>;
 }
