@@ -25,3 +25,4 @@ Route.get('/', async () => {
 });
 
 Route.resource('/users', 'UsersController').only(['index', 'store', 'destroy', 'show']);
+Route.post('/predictions', 'PredictionsController.handlePrediction');
