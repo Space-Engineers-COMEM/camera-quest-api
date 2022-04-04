@@ -11,7 +11,13 @@ npm install
 npm run dev
 ```
 
-We use MySQL for the database, so start a server on your machine, duplicate `.env.example` file to `.env` and change the file according to your needs.
+We use MySQL for the database, so start a server on your machine, duplicate `.env.example` file to `.env` and change the file according to your database server settings.
+
+Generate a new `APP_KEY`, by running the following:
+
+```shell
+node ace generate:key
+```
 
 You can start a new database from scratch and fill it with data by running the seeders:
 
