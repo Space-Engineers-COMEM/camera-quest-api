@@ -80,7 +80,7 @@ In all case, make sure to close the issue when you fix it.
 
 ## Contributors
 
-<a href="https://github.com/vuejs/vue/graphs/contributors">
+<a href="https://github.com/space-engineers-comem/camera-quest-api/graphs/contributors">
 <img src="https://contrib.rocks/image?repo=space-engineers-comem/camera-quest-api"/>
 </a>
 
