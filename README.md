@@ -11,7 +11,13 @@ npm install
 npm run dev
 ```
 
-We use MySQL for the database, so start a server on your machine, duplicate `.env.example` file to `.env` and change the file according to your needs.
+We use MySQL for the database, so start a server on your machine, duplicate `.env.example` file to `.env` and change the file according to your database server settings.
+
+Generate a new `APP_KEY`, by running the following:
+
+```shell
+node ace generate:key
+```
 
 You can start a new database from scratch and fill it with data by running the seeders:
 
@@ -35,13 +41,13 @@ We use [ESLint](https://eslint.org/), [Prettier](https://prettier.io/) and [Edit
 
 When you commit, write it so it describes what the commit do. It should begin with a verb. To make this easy, always think as the followint of the sentence "This commit…".
 
-> Examples:<br> > `Add POST User`, `Fix issue #123`, `Update README.md`, …
+> Examples: `Add POST User`, `Fix issue #123`, `Update README.md`, …
 
 **Branches**
 
 If you want to work on something new, follow this workflow. Keep the `main` branch clean, so other developer can use it as a stable base to work on.
 
-> If you want to work on an issue, please check the issue workflow below.
+If you want to work on an issue, please check the **issue workflow** below.
 
 1. **Create a new branch** and follow the naming convention: `<type>/<name>`.<br>
    The "type" can be one of the following: <br>`feat`, `fix`, `test`, `docs`.
@@ -69,3 +75,17 @@ You can create and assign issues to you or another developer. When you want to f
 2. If it's a bigger issue, you can create a branch with the name of the issue in it, like this: `fix/issue-#123`
 
 In all case, make sure to close the issue when you fix it.
+
+# About
+
+## Contributors
+
+<a href="https://github.com/space-engineers-comem/camera-quest-api/graphs/contributors">
+<img src="https://contrib.rocks/image?repo=space-engineers-comem/camera-quest-api"/>
+</a>
+
+## License
+
+[MIT license](LICENSE).
+
+Copyright (c) 2022-present, Space Engineers COMEM

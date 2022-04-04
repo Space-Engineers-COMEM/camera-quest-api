@@ -10,8 +10,7 @@ export default class Users extends BaseSchema {
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
-      table.timestamp('created_at', { useTz: true });
-      table.timestamp('updated_at', { useTz: true });
+      table.timestamps(true, true);
 
       table.string('name', 50).notNullable();
       table.string('password', 60).notNullable();
