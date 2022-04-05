@@ -11,8 +11,8 @@ export default class PoisController {
   }
 
   public async store({ request }) {
-    const poi = await Poi.findOrFail(request.id);
-    return await poi.save();
+    const poi = await Poi.create(request.body());
+    return poi;
   }
 
   public async destroy({ request }) {

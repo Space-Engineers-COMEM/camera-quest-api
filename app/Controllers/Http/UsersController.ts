@@ -11,8 +11,8 @@ export default class UsersController {
   }
 
   public async store({ request }) {
-    const user = await User.findOrFail(request.id);
-    return await user.save();
+    const user = await User.create(request.body());
+    return user;
   }
 
   public async destroy({ request }) {
