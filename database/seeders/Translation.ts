@@ -5,9 +5,10 @@ export default class TranslationSeeder extends BaseSeeder {
   public async run() {
     await Translation.createMany([
       {
-        key: 'page.welcome',
+        key: 'title',
         value: 'Welcome',
         id_poi: 1,
+        id_lang: 'en',
       },
     ]);
   }
