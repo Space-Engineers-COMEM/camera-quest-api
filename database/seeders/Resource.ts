@@ -1,9 +1,9 @@
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder';
-import Ressource from 'App/Models/Ressource';
+import Resource from 'App/Models/Resource';
 
-export default class RessourceSeeder extends BaseSeeder {
+export default class ResourceSeeder extends BaseSeeder {
   public async run() {
-    await Ressource.createMany([
+    await Resource.createMany([
       {
         url: 'https.//test.com',
         type: 'audio',

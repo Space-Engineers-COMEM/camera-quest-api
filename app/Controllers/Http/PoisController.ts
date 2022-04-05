@@ -1,5 +1,6 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Poi from 'App/Models/Poi';
+import PoisValidator from 'App/Validators/PoisValidator';
 
 export default class PoisController {
   public async index() {
@@ -11,7 +12,8 @@ export default class PoisController {
   }
 
   public async store({ request }) {
-    const poi = await Poi.create(request.body());
+    const data = await request.validate(PoisValidator);
+    const poi = await Poi.create(data);
     return poi;
   }
 

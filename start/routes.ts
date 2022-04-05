@@ -26,3 +26,4 @@ Route.get('/', async () => {
 
 Route.resource('/users', 'UsersController').only(['index', 'store', 'destroy', 'show']);
 Route.resource('/pois', 'PoisController').only(['index', 'store', 'destroy', 'show']);
+Route.resource('/resources', 'ResourcesController').only(['index', 'store', 'destroy', 'show']);
