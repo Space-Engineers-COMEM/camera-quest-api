@@ -9,7 +9,7 @@ export default class AuthController {
       });
       return token.toJSON();
     } catch (error) {
-      return response.badRequest(error);
+      return response.badRequest({ type: 'error', content: 'Bad pseudo or password' });
     }
   }
   public async logout({ auth, response }) {
