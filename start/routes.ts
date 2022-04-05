@@ -20,10 +20,7 @@
 
 import Route from '@ioc:Adonis/Core/Route';
 
-Route.get('/', async () => {
-  return 'Entry point';
-});
-
-Route.resource('/users', 'UsersController').only(['index', 'store', 'destroy', 'show']);
+Route.get('/', 'RootsController.root');
+Route.resource('/users', 'UsersController');
 Route.resource('/pois', 'PoisController').only(['index', 'store', 'destroy', 'show']);
 Route.resource('/resources', 'ResourcesController').only(['index', 'store', 'destroy', 'show']);
