@@ -20,7 +20,11 @@
 
 import Route from '@ioc:Adonis/Core/Route';
 
-Route.get('/', 'RootsController.root');
-Route.resource('/users', 'UsersController');
-Route.resource('/pois', 'PoisController').only(['index', 'store', 'destroy', 'show']);
-Route.resource('/resources', 'ResourcesController').only(['index', 'store', 'destroy', 'show']);
+Route.get('/', 'RootsController.root').middleware('auth');
+Route.post('/login', 'AuthController.login');
+Route.post('/logout', 'AuthController.logout');
+Route.resource('/users', 'UsersController').apiOnly();
+Route.resource('/pois', 'PoisController').only(['index', 'store', 'destroy', 'show']).apiOnly();
+Route.resource('/resources', 'ResourcesController')
+  .only(['index', 'store', 'destroy', 'show'])
+  .apiOnly();
