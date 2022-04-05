@@ -20,9 +20,12 @@
 
 import Route from '@ioc:Adonis/Core/Route';
 
-Route.get('/', async () => {
-  return 'Entry point';
-});
-
-Route.resource('/users', 'UsersController').only(['index', 'store', 'destroy', 'show']);
 Route.post('/predictions', 'PredictionsController.handlePrediction');
+Route.get('/', 'RootsController.root').middleware('auth');
+Route.post('/login', 'AuthController.login');
+Route.post('/logout', 'AuthController.logout');
+Route.resource('/users', 'UsersController').apiOnly();
+Route.resource('/pois', 'PoisController').only(['index', 'store', 'destroy', 'show']).apiOnly();
+Route.resource('/resources', 'ResourcesController')
+  .only(['index', 'store', 'destroy', 'show'])
+  .apiOnly();
