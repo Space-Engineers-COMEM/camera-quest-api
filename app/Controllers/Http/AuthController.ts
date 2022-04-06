@@ -12,12 +12,17 @@ export default class AuthController {
       return response.badRequest({ type: 'error', content: 'Bad pseudo or password' });
     }
   }
+
   public async logout({ auth, response }) {
     try {
-      await auth.use('api').revoke();
-      return { revoked: true };
+      const check = await auth.use('api').check();
+      if (!check) {
+        return { revoke: false };
+      }
+      await auth.logout();
+      return { revoke: true };
     } catch (error) {
-      return response.send(error);
+      return response.badRequest(error);
     }
   }
 }
