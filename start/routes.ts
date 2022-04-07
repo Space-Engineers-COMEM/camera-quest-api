@@ -25,7 +25,9 @@ Route.get('/', 'RootsController.root').middleware('auth');
 Route.post('/login', 'AuthController.login');
 Route.post('/logout', 'AuthController.logout');
 Route.resource('/users', 'UsersController').apiOnly();
+
 Route.resource('/pois', 'PoisController').only(['index', 'store', 'destroy', 'show']).apiOnly();
+Route.get('/pois/:id/:lang', 'PoisController.poi');
 Route.resource('/resources', 'ResourcesController')
   .only(['index', 'store', 'destroy', 'show'])
   .apiOnly();

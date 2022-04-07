@@ -3,4 +3,4 @@ type RootInfo = {
   users_link: string;
 };
 
-export = RootInfo;
+export { RootInfo };

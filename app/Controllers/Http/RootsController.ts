@@ -1,6 +1,5 @@
-// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Env from '@ioc:Adonis/Core/Env';
-import RootInfo from '../../../types/SharpObjects';
+import { RootInfo } from '../../../types/SharpObjects';
 
 export default class RootsController {
   private link: string = Env.get('LINK', 'http://localhost:3333/');
