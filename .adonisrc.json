@@ -6,6 +6,9 @@
     "@adonisjs/repl/build/commands",
     "@adonisjs/lucid/build/commands"
   ],
+  "directories": {
+    "public": "assets"
+  },
   "exceptionHandlerNamespace": "App/Exceptions/Handler",
   "aliases": {
     "App": "app",
@@ -27,3 +30,5 @@
     "@adonisjs/repl"
   ]
 }
+
+

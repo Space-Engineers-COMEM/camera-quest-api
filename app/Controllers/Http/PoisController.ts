@@ -30,7 +30,6 @@ export default class PoisController {
       const translate = await TranslationModel.query()
         .where('id_lang', params.lang)
         .where('id_poi', params.id);
-      console.log(translate.length);
       if (translate.length <= 0)
         return response.badRequest({
           message: `Translation in '${params.lang}' not available`,
@@ -39,7 +38,6 @@ export default class PoisController {
         poi: poiFinal,
         translations: translate,
       };
-      console.log(translate);
       return response.ok(responseToSend);
     } catch (error) {
       return response.badRequest({
