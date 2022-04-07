@@ -1,5 +1,5 @@
-// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Poi from 'App/Models/Poi';
+import TranslationModel from 'App/Models/Translation';
 import PoisValidator from 'App/Validators/PoisValidator';
 
 export default class PoisController {
@@ -20,5 +20,31 @@ export default class PoisController {
   public async destroy({ request }) {
     const poi = await Poi.findOrFail(request.id);
     return await poi.delete();
+  }
+
+  public async poi({ request, response }) {
+    const params = request.params();
+    try {
+      const poiDB = await Poi.findOrFail(params.id);
+      const poiFinal = poiDB.$attributes;
+      const translate = await TranslationModel.query()
+        .where('id_lang', params.lang)
+        .where('id_poi', params.id);
+      console.log(translate.length);
+      if (translate.length <= 0)
+        return response.badRequest({
+          message: `Translation in '${params.lang}' not available`,
+        });
+      const responseToSend = {
+        poi: poiFinal,
+        translations: translate,
+      };
+      console.log(translate);
+      return response.ok(responseToSend);
+    } catch (error) {
+      return response.badRequest({
+        message: 'Not able to give you the POI please check the id',
+      });
+    }
   }
 }
