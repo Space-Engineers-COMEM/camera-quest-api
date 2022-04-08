@@ -15,6 +15,7 @@ export default class AuthController {
 
   public async logout({ auth, response }) {
     try {
+      //check if the token is in the database
       const check = await auth.use('api').check();
       if (!check) {
         return { revoke: false };
