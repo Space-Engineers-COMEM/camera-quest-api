@@ -1,14 +1,31 @@
-// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import User from 'App/Models/User';
 import UsersValidator from 'App/Validators/UserValidator';
 
 export default class UsersController {
   public async index() {
-    return await User.all();
+    const results = await User.all();
+    //to delete the password from the sended response
+    const toSend = results.map((i) => {
+      const mynewobject = {
+        id: i.id,
+        email: i.email,
+      };
+      return mynewobject;
+    });
+    return toSend;
   }
 
   public async show({ params }) {
-    return await User.findOrFail(params.id);
+    const results = await User.query().where('id', params.id);
+    //to delete the password from the sended response
+    const toSend = results.map((i) => {
+      const mynewobject = {
+        id: i.id,
+        email: i.email,
+      };
+      return mynewobject;
+    });
+    return toSend[0];
   }
 
   public async store({ request }) {

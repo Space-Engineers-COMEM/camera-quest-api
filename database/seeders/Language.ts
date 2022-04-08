@@ -5,23 +5,23 @@ export default class LanguageSeeder extends BaseSeeder {
   public async run() {
     await Language.createMany([
       {
-        lang_iso: 'fr',
+        lang_iso: 'FR',
         lang_name: 'Français',
       },
       {
-        lang_iso: 'en',
+        lang_iso: 'EN',
         lang_name: 'English',
       },
       {
-        lang_iso: 'it',
-        lang_name: 'Italien',
+        lang_iso: 'IT',
+        lang_name: 'Italiano',
       },
       {
-        lang_iso: 'de',
+        lang_iso: 'DE',
         lang_name: 'Deutsch',
       },
       {
-        lang_iso: 'es',
+        lang_iso: 'ES',
         lang_name: 'Español',
       },
     ]);
