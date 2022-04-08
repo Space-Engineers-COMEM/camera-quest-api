@@ -7,6 +7,9 @@ export default class TagSeeder extends BaseSeeder {
       {
         name: 'Reflex',
       },
+      {
+        name: 'MirroLess',
+      },
     ]);
   }
 }

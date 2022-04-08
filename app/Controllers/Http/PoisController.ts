@@ -1,8 +1,10 @@
 import Poi from 'App/Models/Poi';
 import TranslationModel from 'App/Models/Translation';
 import Resource from 'App/Models/Resource';
+import Tag from 'App/Models/Tag';
+import TagPoi from 'App/Models/TagPoi';
 import PoisValidator from 'App/Validators/PoisValidator';
-import Resources from 'Database/migrations/1649074790208_resources';
+import { Response } from '../../../types/SharpObjects';
 
 export default class PoisController {
   public async index() {
@@ -26,7 +28,6 @@ export default class PoisController {
 
   public async poi({ request, response }) {
     const params = request.params();
-
     try {
       // Search in DB for the POI and error handling
       const poiDB = await Poi.query().where('id', params.id);
@@ -51,11 +52,20 @@ export default class PoisController {
           message: `Resource for the POI with the id '${params.id}' is not available`,
         });
 
-      //creation the response sended to the client
-      const responseToSend = {
-        poi: poiDB,
+      // Search in DB for the tags
+      const tagsDB = await TagPoi.query().where('id_poi', params.id);
+      let tags: Tag[] = [];
+      for (const tag of tagsDB) {
+        const responseDB = await Tag.query().where('id', tag.id_tag);
+        tags.push(responseDB[0]);
+      }
+
+      //create the response sended to the client
+      const responseToSend: Response = {
+        poi: poiDB[0],
         translations: translate,
         resources: resources,
+        tags: tags,
       };
       return response.ok(responseToSend);
     } catch (error) {

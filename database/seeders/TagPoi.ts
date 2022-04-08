@@ -8,6 +8,10 @@ export default class TagPoiSeeder extends BaseSeeder {
         id_tag: 1,
         id_poi: 1,
       },
+      {
+        id_tag: 2,
+        id_poi: 1,
+      },
     ]);
   }
 }

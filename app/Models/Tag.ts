@@ -6,4 +6,7 @@ export default class Tag extends BaseModel {
 
   @column()
   public name: string;
+
+  @column()
+  public attributes: string;
 }

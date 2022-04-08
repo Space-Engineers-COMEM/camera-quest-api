@@ -6,6 +6,7 @@ export default class PoisSeeder extends BaseSeeder {
     await Poi.createMany([
       {
         azure_tag: 'azureTag1',
+        stage: 1,
         exhibition_number: 124,
         title: 'appareil 1',
         author: 'Nicéphore niépce',

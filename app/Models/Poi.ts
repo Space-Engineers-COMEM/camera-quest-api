@@ -8,6 +8,9 @@ export default class Poi extends BaseModel {
   public id: number;
 
   @column()
+  public stage: number;
+
+  @column()
   public azure_tag: string;
 
   @column()
