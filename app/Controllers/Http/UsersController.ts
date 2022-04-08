@@ -4,28 +4,12 @@ import UsersValidator from 'App/Validators/UserValidator';
 export default class UsersController {
   public async index() {
     const results = await User.all();
-    //to delete the password from the sended response
-    const toSend = results.map((i) => {
-      const mynewobject = {
-        id: i.id,
-        email: i.email,
-      };
-      return mynewobject;
-    });
-    return toSend;
+    return results;
   }
 
   public async show({ params }) {
     const results = await User.query().where('id', params.id);
-    //to delete the password from the sended response
-    const toSend = results.map((i) => {
-      const mynewobject = {
-        id: i.id,
-        email: i.email,
-      };
-      return mynewobject;
-    });
-    return toSend[0];
+    return results;
   }
 
   public async store({ request }) {

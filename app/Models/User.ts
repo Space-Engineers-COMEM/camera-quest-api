@@ -5,7 +5,7 @@ export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
 
-  @column()
+  @column({ serializeAs: null })
   public password: string;
 
   @column()
