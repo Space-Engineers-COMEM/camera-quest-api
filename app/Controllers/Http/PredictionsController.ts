@@ -1,3 +1,4 @@
+import PoisController from './PoisController';
 import Drive from '@ioc:Adonis/Core/Drive';
 import Env from '@ioc:Adonis/Core/Env';
 import fetch from 'cross-fetch';
@@ -34,10 +35,10 @@ export default class PredictionsController {
 
     // Check if the prediction was successful
     if (predictionResponse.predictions[0].probability > MIN_PROBABILITY) {
-      return response.ok({
-        type: 'prediction',
-        content: predictionResponse.predictions[0],
-      });
+      // return response.ok({
+      //   type: 'prediction',
+      //   content: predictionResponse.predictions[0],
+      // });
     } else {
       return response.ok({
         type: 'unpredictable',

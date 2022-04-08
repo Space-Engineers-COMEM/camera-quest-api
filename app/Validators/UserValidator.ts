@@ -9,7 +9,11 @@ export default class UserValidator {
       rules.minLength(8),
       rules.maxLength(255),
     ]),
-    email: schema.string({ escape: true, trim: true }, [rules.email(), rules.maxLength(255)]),
+    email: schema.string({ escape: true, trim: true }, [
+      rules.email(),
+      rules.unique({ table: 'users', column: 'email' }),
+      rules.maxLength(255),
+    ]),
   });
 
   public messages = {};
