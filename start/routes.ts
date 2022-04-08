@@ -31,3 +31,4 @@ Route.get('/pois/:id/:lang', 'PoisController.poi');
 Route.resource('/resources', 'ResourcesController')
   .only(['index', 'store', 'destroy', 'show'])
   .apiOnly();
+Route.get('/token', 'TokensController.isLoggedIn');
