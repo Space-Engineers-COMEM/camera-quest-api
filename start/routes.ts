@@ -24,7 +24,8 @@ Route.post('/predictions', 'PredictionsController.handlePrediction');
 Route.get('/', 'RootsController.root').middleware('auth');
 Route.post('/login', 'AuthController.login');
 Route.post('/logout', 'AuthController.logout');
-Route.resource('/users', 'UsersController').apiOnly();
+Route.resource('/users', 'UsersController').only(['index', 'destroy', 'show']).apiOnly();
+Route.post('/users', 'UsersController.store').middleware('email');
 
 Route.resource('/pois', 'PoisController').only(['index', 'store', 'destroy', 'show']).apiOnly();
 Route.get('/pois/:id/:lang', 'PoisController.poi');
