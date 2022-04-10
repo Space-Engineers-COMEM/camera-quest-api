@@ -13,6 +13,15 @@ export default class PoisSeeder extends BaseSeeder {
         periode: '2015',
         visible: true,
       },
+      {
+        azure_tag: 'azureTag1',
+        stage: 2,
+        exhibition_number: 223,
+        title: 'appareil 2',
+        author: 'Nicéphore niépce',
+        periode: '2015',
+        visible: true,
+      },
     ]);
   }
 }

@@ -14,4 +14,9 @@ type Response = {
   resources: Resource[];
   tags: Tag[];
 };
-export { RootInfo, Response };
+
+type ResponseAll = {
+  poi: Poi;
+  resources: Resource;
+};
+export { RootInfo, Response, ResponseAll };
