@@ -11,7 +11,7 @@ export default class ResourceSeeder extends BaseSeeder {
         id_lang: 1,
       },
       {
-        url: 'https.//testphoto.com',
+        url: 'http://localhost:3333/images/image.JPG',
         type: 'image',
         id_poi: 1,
         id_lang: 1,

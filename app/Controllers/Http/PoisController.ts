@@ -22,9 +22,8 @@ export default class PoisController {
       for (const poi of allPois) {
         let idPoi = poi.id;
 
-        // Search in DB for the ressources and error handling
-        const resources = await Resource.query().where('id_poi', idPoi).where('type', 'photo');
-
+        // Search in DB for the ressourcess
+        const resources = await Resource.query().where('id_poi', idPoi).where('type', 'image');
         // Building response to send to the user
         const responseToSend: ResponseAll = {
           poi: poi,
@@ -54,47 +53,6 @@ export default class PoisController {
   public async destroy({ request }) {
     const poi = await Poi.findOrFail(request.id);
     return await poi.delete();
-  }
-
-  public async poi({ request, response }) {
-    const params = request.params();
-    try {
-      // Search in DB for the POI and error handling
-      const poiDB = await Poi.query().where('id', params.id);
-      if (poiDB.length <= 0) return response.ok({ type: 'error', content: 'No POI found' });
-      // Search in DB for the translation and error handling
-      const translate = await TranslationModel.query()
-        .where('id_lang', params.lang)
-        .where('id_poi', params.id);
-      if (translate.length <= 0)
-        return response.ok({ type: 'error', content: 'No translation found' });
-
-      // Search in DB for the ressources and error handling
-      const resources = await Resource.query().where('id_poi', params.id);
-      if (resources.length <= 0)
-        return response.ok({ type: 'error', content: 'No resources found' });
-
-      // Search in DB for the tags
-      const tagsDB = await TagPoi.query().where('id_poi', params.id);
-      let tags: Tag[] = [];
-      for (const tag of tagsDB) {
-        const responseDB = await Tag.query().where('id', tag.id_tag);
-        tags.push(responseDB[0]);
-      }
-
-      //create the response sended to the client
-      const responseToSend: Response = {
-        poi: poiDB[0],
-        translations: translate,
-        resources: resources,
-        tags: tags,
-      };
-      return response.ok(responseToSend);
-    } catch (error) {
-      response.status(500).send({
-        message: `Internal problem server fetching in the database for the POI with id '${params.id}'`,
-      });
-    }
   }
 
   public async getPoiFromPrediction(id, lang) {
