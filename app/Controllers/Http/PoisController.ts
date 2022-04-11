@@ -22,9 +22,8 @@ export default class PoisController {
       for (const poi of allPois) {
         let idPoi = poi.id;
 
-        // Search in DB for the ressources and error handling
+        // Search in DB for the ressourcess
         const resources = await Resource.query().where('id_poi', idPoi).where('type', 'image');
-        if (resources.length <= 0) return response.status(204);
         // Building response to send to the user
         const responseToSend: ResponseAll = {
           poi: poi,
