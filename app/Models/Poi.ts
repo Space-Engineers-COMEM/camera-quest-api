@@ -29,7 +29,7 @@ export default class Poi extends BaseModel {
   public visible: boolean;
 
   @column()
-  public id_area: number;
+  public area_no: number;
 
   @hasMany(() => Resource, {
     foreignKey: 'id_poi',

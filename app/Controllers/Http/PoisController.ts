@@ -24,7 +24,7 @@ export default class PoisController {
 
         // Search in DB for the ressources and error handling
         const resources = await Resource.query().where('id_poi', idPoi).where('type', 'photo');
-        if (resources.length <= 0) return response.status(204);
+
         // Building response to send to the user
         const responseToSend: ResponseAll = {
           poi: poi,
@@ -61,16 +61,18 @@ export default class PoisController {
     try {
       // Search in DB for the POI and error handling
       const poiDB = await Poi.query().where('id', params.id);
-      if (poiDB.length <= 0) return response.status(204);
+      if (poiDB.length <= 0) return response.ok({ type: 'error', content: 'No POI found' });
       // Search in DB for the translation and error handling
       const translate = await TranslationModel.query()
         .where('id_lang', params.lang)
         .where('id_poi', params.id);
-      if (translate.length <= 0) return response.status(204);
+      if (translate.length <= 0)
+        return response.ok({ type: 'error', content: 'No translation found' });
 
       // Search in DB for the ressources and error handling
       const resources = await Resource.query().where('id_poi', params.id);
-      if (resources.length <= 0) return response.status(204);
+      if (resources.length <= 0)
+        return response.ok({ type: 'error', content: 'No resources found' });
 
       // Search in DB for the tags
       const tagsDB = await TagPoi.query().where('id_poi', params.id);
@@ -92,6 +94,60 @@ export default class PoisController {
       response.status(500).send({
         message: `Internal problem server fetching in the database for the POI with id '${params.id}'`,
       });
+    }
+  }
+
+  public async getPoiFromPrediction(id, lang) {
+    try {
+      // Search in DB for the POI and error handling
+      const poiDB = await Poi.query().where('id', id);
+      if (poiDB.length <= 0)
+        return { status: 200, type: 'error', content: 'No POI using id ' + id + ' found' };
+
+      // Search in DB for the translation and error handling
+      const translations = await TranslationModel.query()
+        .where('id_lang', lang)
+        .where('id_poi', id);
+      if (translations.length <= 0) {
+        return {
+          status: 200,
+          type: 'error',
+          content: 'No content found for POI ' + id + ' in language ' + lang,
+        };
+      }
+
+      // Search in DB for the ressources and error handling
+      const resources = await Resource.query().where('id_poi', id);
+      if (resources.length <= 0)
+        return { status: 200, type: 'error', content: 'No resources found for POI ' + id };
+
+      // Search in DB for the tags
+      const tagsDB = await TagPoi.query().where('id_poi', id);
+      let tags: Tag[] = [];
+      for (const tag of tagsDB) {
+        const responseDB = await Tag.query().where('id', tag.id_tag);
+        tags.push(responseDB[0]);
+      }
+
+      // Return the response
+      let content: Response = {
+        poi: poiDB[0],
+        translations: translations,
+        resources: resources,
+        tags: tags,
+      };
+
+      return {
+        status: 200,
+        type: 'predicition',
+        content: content,
+      };
+    } catch (error) {
+      return {
+        status: '500',
+        type: 'error',
+        content: 'Internal problem server fetching in the database for the POI with id ' + id,
+      }; // à test
     }
   }
 }

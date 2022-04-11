@@ -6,7 +6,7 @@ export default class PoisSeeder extends BaseSeeder {
     await Poi.createMany([
       {
         azure_tag: 'azureTag1',
-        id_area: 1,
+        area_no: 1,
         exhibition_number: 124,
         title: 'appareil 1',
         author: 'Nicéphore niépce',
@@ -15,7 +15,7 @@ export default class PoisSeeder extends BaseSeeder {
       },
       {
         azure_tag: 'azureTag1',
-        id_area: 2,
+        area_no: 2,
         exhibition_number: 223,
         title: 'appareil 2',
         author: 'Nicéphore niépce',

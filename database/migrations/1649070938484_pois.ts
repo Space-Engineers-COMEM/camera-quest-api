@@ -12,7 +12,7 @@ export default class Pois extends BaseSchema {
       table.string('author').notNullable();
       table.string('periode').notNullable();
       table.boolean('visible').notNullable();
-      table.integer('id_area').unsigned().notNullable().references('areas.id').onDelete('CASCADE');
+      table.integer('area_no').notNullable();
     });
   }
 

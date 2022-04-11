@@ -1,7 +1,8 @@
-import PoisController from './PoisController';
 import Drive from '@ioc:Adonis/Core/Drive';
 import Env from '@ioc:Adonis/Core/Env';
+import Poi from 'App/Models/Poi';
 import fetch from 'cross-fetch';
+import PoisController from './PoisController';
 
 const MIN_PROBABILITY = 0.75;
 
@@ -27,6 +28,11 @@ export default class PredictionsController {
       return response.badRequest({ type: 'error', content: image.errors[0].message });
     }
 
+    // Check if langague is set
+    if (!request.input('lang')) {
+      return response.badRequest({ type: 'error', content: 'No language provided' });
+    }
+
     // Get the file from the server
     const file = await Drive.get(image.tmpPath);
 
@@ -34,15 +40,21 @@ export default class PredictionsController {
     const predictionResponse = await this.getPrediction(file);
 
     // Check if the prediction was successful
-    if (predictionResponse.predictions[0].probability > MIN_PROBABILITY) {
-      // return response.ok({
-      //   type: 'prediction',
-      //   content: predictionResponse.predictions[0],
-      // });
-    } else {
+    if (predictionResponse.predictions[0].probability < MIN_PROBABILITY) {
       return response.ok({
         type: 'unpredictable',
         content: "Couldn't predict the image",
+      });
+    } else {
+      // Return the POI from the prediction and all its data
+      const exhibitionNumber = predictionResponse.predictions[0].tagName.split('_')[0];
+      const poi = await Poi.findByOrFail('exhibition_number', exhibitionNumber);
+      const controller = new PoisController();
+      const data = await controller.getPoiFromPrediction(poi.id, request.body().lang);
+
+      return response.status(data.status).json({
+        type: data.type,
+        content: data.content,
       });
     }
   }
