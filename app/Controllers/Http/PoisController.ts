@@ -4,11 +4,39 @@ import Resource from 'App/Models/Resource';
 import Tag from 'App/Models/Tag';
 import TagPoi from 'App/Models/TagPoi';
 import PoisValidator from 'App/Validators/PoisValidator';
-import { Response } from '../../../types/SharpObjects';
+import { Response, ResponseAll } from '../../../types/SharpObjects';
+import Database from '@ioc:Adonis/Lucid/Database';
+
+//ATTENTION DEMANDRR SI RESPONSE OK IS GOOD ?
 
 export default class PoisController {
-  public async index() {
-    return await Poi.all();
+  public async index({ response }) {
+    try {
+      // Search in DB for all POIs
+      const allPOIs = await Database.query().from('pois').select('*').orderBy('id', 'asc');
+      if (allPOIs.length <= 0) return response.status(204);
+
+      let POIsToSend: ResponseAll[] = [];
+
+      //loop to catch each ressoures for each pois
+      for (const poi of allPOIs) {
+        let idPOI = poi.id;
+        // Search in DB for the ressources and error handling
+        const resources = await Resource.query().where('id_poi', idPOI).where('type', 'photo');
+        if (resources.length <= 0) return response.status(204);
+        //building response to send to the user
+        const responseToSend: ResponseAll = {
+          poi: poi,
+          resources: resources[0],
+        };
+        POIsToSend.push(responseToSend);
+      }
+      return response.ok(POIsToSend);
+    } catch (error) {
+      response.status(500).send({
+        message: `Internal problem server fetching in the database for the all the POIs`,
+      });
+    }
   }
 
   public async show({ params }) {
@@ -31,26 +59,16 @@ export default class PoisController {
     try {
       // Search in DB for the POI and error handling
       const poiDB = await Poi.query().where('id', params.id);
-      if (poiDB.length <= 0)
-        return response.badRequest({
-          message: `The POI with the id '${params.id}' is not existant`,
-        });
-
+      if (poiDB.length <= 0) return response.status(204);
       // Search in DB for the translation and error handling
       const translate = await TranslationModel.query()
         .where('id_lang', params.lang)
         .where('id_poi', params.id);
-      if (translate.length <= 0)
-        return response.badRequest({
-          message: `Translation in '${params.lang}' not available`,
-        });
+      if (translate.length <= 0) return response.status(204);
 
       // Search in DB for the ressources and error handling
       const resources = await Resource.query().where('id_poi', params.id);
-      if (resources.length <= 0)
-        return response.badRequest({
-          message: `Resource for the POI with the id '${params.id}' is not available`,
-        });
+      if (resources.length <= 0) return response.status(204);
 
       // Search in DB for the tags
       const tagsDB = await TagPoi.query().where('id_poi', params.id);
@@ -70,7 +88,7 @@ export default class PoisController {
       return response.ok(responseToSend);
     } catch (error) {
       response.status(500).send({
-        message: `Internal problem server fetching in the database for the POI`,
+        message: `Internal problem server fetching in the database for the POI with id '${params.id}'`,
       });
     }
   }
