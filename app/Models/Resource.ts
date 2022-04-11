@@ -9,4 +9,7 @@ export default class Resource extends BaseModel {
 
   @column()
   public id_poi: number;
+
+  @column()
+  public id_lang: number;
 }

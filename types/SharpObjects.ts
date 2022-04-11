@@ -5,7 +5,8 @@ import Tag from 'App/Models/Tag';
 
 type RootInfo = {
   message: string;
-  users_link: string;
+  admin_link: string;
+  pois_link: string;
 };
 
 type Response = {
@@ -19,4 +20,18 @@ type ResponseAll = {
   poi: Poi;
   resources: Resource;
 };
-export { RootInfo, Response, ResponseAll };
+
+type PoiPreview = {
+  id: number;
+  title: string;
+  imagePath: string;
+};
+
+type PoiListed = {
+  id: number;
+  title: string;
+  imagePath: string;
+  area: number;
+};
+
+export { RootInfo, Response, ResponseAll, PoiPreview, PoiListed };

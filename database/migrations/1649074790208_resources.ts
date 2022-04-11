@@ -6,15 +6,15 @@ export default class Resources extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.string('url').notNullable().primary();
-      table.string('type').notNullable();
+      // table.string('type').notNullable();
+      table.enu('type', ['image', 'video', 'audio', 'link']).notNullable();
+      table.integer('id_poi').unsigned().notNullable().references('pois.id').onDelete('CASCADE');
       table
-        .integer('id_poi')
-        .notNullable()
+        .integer('id_lang')
         .unsigned()
-        .references('pois.id')
-        .onDelete('CASCADE')
-        .defaultTo(0);
-      table.timestamps(true, true);
+        .notNullable()
+        .references('languages.id')
+        .onDelete('CASCADE');
     });
   }
 

@@ -5,22 +5,16 @@ export default class Translations extends BaseSchema {
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.string('key').notNullable().primary();
+      table.increments('id');
+      table.enu('key', ['subtitle', 'description']).notNullable();
       table.string('value').notNullable();
+      table.integer('id_poi').unsigned().notNullable().references('pois.id').onDelete('CASCADE');
       table
-        .integer('id_poi')
-        .notNullable()
+        .integer('id_lang')
         .unsigned()
-        .references('pois.id')
-        .onDelete('CASCADE')
-        .defaultTo(0);
-      table
-        .string('id_lang')
         .notNullable()
-        .references('languages.lang_iso')
-        .onDelete('CASCADE')
-        .defaultTo('null');
-      table.timestamps(true, true);
+        .references('languages.id')
+        .onDelete('CASCADE');
     });
   }
 

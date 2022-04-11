@@ -20,16 +20,30 @@
 
 import Route from '@ioc:Adonis/Core/Route';
 
-Route.post('/predictions', 'PredictionsController.handlePrediction');
 Route.get('/', 'RootsController.root').middleware('auth');
+
+// Auth routes
+Route.get('/token', 'TokensController.isLoggedIn');
 Route.post('/login', 'AuthController.login');
 Route.post('/logout', 'AuthController.logout');
-Route.resource('/users', 'UsersController').only(['index', 'destroy', 'show']).apiOnly();
-Route.post('/users', 'UsersController.store');
+
+// Users routes
+Route.group(() => {
+  Route.resource('/', 'UsersController').only(['index', 'destroy', 'show']).apiOnly();
+  Route.post('/', 'UsersController.store');
+}).prefix('/users');
+
+// Points of interest routes
+Route.group(() => {
+  Route.post('/prediction', 'PoisController.getPrediction');
+  Route.get('/previews/:id', 'PoisController.getPreview');
+  Route.get('/previews/', 'PoisController.getPreviews');
+  Route.get('/:id/:lang', 'PoisController.getPoiData');
+}).prefix('/pois');
 
 Route.resource('/pois', 'PoisController').only(['index', 'store', 'destroy', 'show']).apiOnly();
-Route.get('/pois/:id/:lang', 'PoisController.poi');
+
+// Resources routes
 Route.resource('/resources', 'ResourcesController')
   .only(['index', 'store', 'destroy', 'show'])
   .apiOnly();
-Route.get('/token', 'TokensController.isLoggedIn');

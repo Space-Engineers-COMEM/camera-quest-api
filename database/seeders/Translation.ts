@@ -5,16 +5,16 @@ export default class TranslationSeeder extends BaseSeeder {
   public async run() {
     await Translation.createMany([
       {
-        key: 'title',
+        key: 'subtitle',
         value: "L'appareil photo super beau",
         id_poi: 1,
-        id_lang: 'fr',
+        id_lang: 1,
       },
       {
-        key: 'Description',
+        key: 'description',
         value: 'Lorem Ipsum ....',
         id_poi: 1,
-        id_lang: 'fr',
+        id_lang: 1,
       },
     ]);
   }
