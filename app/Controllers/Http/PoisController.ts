@@ -4,35 +4,20 @@ import Resource from 'App/Models/Resource';
 import Tag from 'App/Models/Tag';
 import TagPoi from 'App/Models/TagPoi';
 import PoisValidator from 'App/Validators/PoisValidator';
-import { Response, ResponseAll } from '../../../types/SharpObjects';
+import { PoiListed, PoiPreview, Response } from '../../../types/SharpObjects';
 import Database from '@ioc:Adonis/Lucid/Database';
+import Drive from '@ioc:Adonis/Core/Drive';
+import Env from '@ioc:Adonis/Core/Env';
+import fetch from 'cross-fetch';
 
-//ATTENTION DEMANDRR SI RESPONSE OK IS GOOD ?
+const MIN_PROBABILITY = 0.75;
 
 export default class PoisController {
   public async index({ response }) {
     try {
       // Search in DB for all POIs
-      const allPois = await Database.query().from('pois').select('*').orderBy('id', 'asc');
-      if (allPois.length <= 0) return response.status(204);
-
-      let PoisToSend: ResponseAll[] = [];
-
-      //loop to catch each ressoures for each pois
-      for (const poi of allPois) {
-        let idPoi = poi.id;
-
-        // Search in DB for the ressourcess
-        const resources = await Resource.query().where('id_poi', idPoi).where('type', 'image');
-        // Building response to send to the user
-        const responseToSend: ResponseAll = {
-          poi: poi,
-          resources: resources[0],
-        };
-
-        PoisToSend.push(responseToSend);
-      }
-      return response.ok(PoisToSend);
+      const pois = await Database.query().from('pois').select('*').orderBy('id', 'asc');
+      return response.ok(pois);
     } catch (error) {
       response.status(500).send({
         message: `Internal problem server fetching in the database for the all the POIs`,
@@ -55,29 +40,135 @@ export default class PoisController {
     return await poi.delete();
   }
 
-  public async getPoiFromPrediction(id, lang) {
+  public async getPreviews({ response }) {
+    try {
+      // Search in DB for all POIs
+      const allPois = await Database.query().from('pois').select('*').orderBy('id', 'asc');
+      if (allPois.length <= 0)
+        return response.ok({
+          type: 'error',
+          content: 'No POIs in the database',
+        });
+
+      let PoisToSend: PoiListed[] = [];
+
+      //loop to catch each ressoures for each pois
+      for (const poi of allPois) {
+        // Search in DB for the images
+        const images = await Resource.query().where('id_poi', poi.id).where('type', 'image');
+
+        // Building response to send to the user
+        const responseToSend: PoiListed = {
+          id: poi.id,
+          title: poi.title,
+          imagePath: images[0].url,
+          area: poi.area,
+        };
+
+        PoisToSend.push(responseToSend);
+      }
+      return response.ok(PoisToSend);
+    } catch (error) {
+      response.status(500).send({
+        type: 'error',
+        message: `Internal problem server fetching in the database for the all the POIs`,
+      });
+    }
+  }
+
+  public async getPreview({ request, response }) {
+    const id = request.param('id');
+
+    try {
+      const poi = await Poi.findOrFail(id);
+      const images = await Resource.query().where('id_poi', poi.id).where('type', 'image');
+
+      const poiPreview: PoiPreview = {
+        id: poi.id,
+        title: poi.title,
+        imagePath: images[0].url,
+      };
+
+      return response.ok({
+        type: 'success',
+        content: poiPreview,
+      });
+    } catch (error) {
+      return response.internalServerError({
+        type: 'error',
+        error: 'Internal problem server fetching in the database for the POI with id ' + id,
+      });
+    }
+  }
+
+  public async getPrediction({ request, response }) {
+    let image = request.file('image', {
+      size: '4mb',
+      extnames: ['jpg', 'png', 'gif', 'bmp', 'jpeg'],
+    });
+
+    // Check if the file is present
+    if (!image) {
+      return response.badRequest({ type: 'error', content: 'No image provided' });
+    }
+
+    // Check if the file is valid
+    if (!image.isValid) {
+      return response.badRequest({ type: 'error', content: image.errors[0].message });
+    }
+
+    // Get the file from the server
+    const file = await Drive.get(image.tmpPath);
+
+    // Get the prediction
+    const predictionResponse = await this.callPredictionApi(file);
+
+    // Check if the prediction was successful
+    if (predictionResponse.predictions[0].probability < MIN_PROBABILITY) {
+      return response.ok({
+        type: 'unpredictable',
+        content: "Couldn't predict the image",
+      });
+    } else {
+      // Return the POI from the prediction and all its data
+      const exhibitionNumber = predictionResponse.predictions[0].tagName.split('_')[0];
+      const poi = await Poi.findByOrFail('exhibition_number', exhibitionNumber);
+
+      return response.ok({
+        type: 'prediction',
+        content: poi.id,
+      });
+    }
+  }
+
+  public async getPoiData({ request, response }) {
+    const id = request.param('id');
+    const lang = request.param('lang');
+
     try {
       // Search in DB for the POI and error handling
       const poiDB = await Poi.query().where('id', id);
       if (poiDB.length <= 0)
-        return { status: 200, type: 'error', content: 'No POI using id ' + id + ' found' };
+        return response.ok({
+          type: 'error',
+          content: 'No POI using id ' + id + ' found',
+        });
 
       // Search in DB for the translation and error handling
       const translations = await TranslationModel.query()
         .where('id_lang', lang)
         .where('id_poi', id);
       if (translations.length <= 0) {
-        return {
-          status: 200,
+        return response.ok({
           type: 'error',
           content: 'No content found for POI ' + id + ' in language ' + lang,
-        };
+        });
       }
 
       // Search in DB for the ressources and error handling
       const resources = await Resource.query().where('id_poi', id);
       if (resources.length <= 0)
-        return { status: 200, type: 'error', content: 'No resources found for POI ' + id };
+        return response.ok({ type: 'error', content: 'No resources found for POI ' + id });
 
       // Search in DB for the tags
       const tagsDB = await TagPoi.query().where('id_poi', id);
@@ -95,17 +186,35 @@ export default class PoisController {
         tags: tags,
       };
 
-      return {
-        status: 200,
-        type: 'predicition',
+      return response.ok({
+        type: 'success',
         content: content,
-      };
+      });
     } catch (error) {
-      return {
-        status: '500',
+      return response.internalServerError({
         type: 'error',
         content: 'Internal problem server fetching in the database for the POI with id ' + id,
-      }; // à test
+      });
     }
+  }
+
+  /**
+   * Sends a file to the prediction API and returns the response.
+   * @param {Buffer} file - The image file that needs to be classified.
+   * @returns The prediction API returns a JSON object.
+   */
+  private async callPredictionApi(file: Buffer) {
+    // Fetch data from prediction API
+    const predictionRequest = await fetch(Env.get('PREDICTION_API_URL'), {
+      method: 'post',
+      body: file,
+      headers: {
+        'Content-Type': 'application/octet-stream',
+        'Prediction-Key': Env.get('PREDICTION_API_KEY'),
+      },
+    });
+
+    const predictionResponse = await predictionRequest.json();
+    return predictionResponse;
   }
 }

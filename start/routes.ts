@@ -27,9 +27,12 @@ Route.resource('/users', 'UsersController').only(['index', 'destroy', 'show']).a
 Route.post('/users', 'UsersController.store');
 
 // Points of interest routes
-Route.post('/predictions', 'PredictionsController.handlePrediction');
+Route.post('/pois/prediction', 'PoisController.getPrediction');
+Route.get('/pois/previews/:id', 'PoisController.getPreview');
+Route.get('/pois/previews/', 'PoisController.getPreviews');
+Route.get('/pois/:id/:lang', 'PoisController.getPoiData');
+
 Route.resource('/pois', 'PoisController').only(['index', 'store', 'destroy', 'show']).apiOnly();
-Route.get('/pois/:id/:lang', 'PoisController.poi');
 
 // Resources routes
 Route.resource('/resources', 'ResourcesController')
