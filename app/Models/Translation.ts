@@ -1,8 +1,10 @@
-import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm';
-import Language from './Language';
+import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm';
 
 export default class Translation extends BaseModel {
   @column({ isPrimary: true })
+  public id: number;
+
+  @column()
   public key: string;
 
   @column()
@@ -12,10 +14,5 @@ export default class Translation extends BaseModel {
   public id_poi: number;
 
   @column()
-  public id_lang: string;
-
-  @hasMany(() => Language, {
-    foreignKey: 'id_poi',
-  })
-  public ressources: HasMany<typeof Language>;
+  public id_lang: number;
 }

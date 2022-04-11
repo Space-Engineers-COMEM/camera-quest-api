@@ -5,9 +5,9 @@ export default class Languages extends BaseSchema {
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.string('lang_iso').primary().notNullable();
+      table.increments('id');
+      table.string('lang_iso').notNullable();
       table.string('lang_name').notNullable();
-      table.timestamps(true, true);
     });
   }
 

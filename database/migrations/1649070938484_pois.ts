@@ -6,14 +6,13 @@ export default class Pois extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id');
-      table.integer('stage').notNullable();
       table.string('azure_tag').notNullable();
       table.integer('exhibition_number').notNullable();
       table.string('title').notNullable();
       table.string('author').notNullable();
       table.string('periode').notNullable();
       table.boolean('visible').notNullable();
-      table.timestamps(true, true);
+      table.integer('id_area').unsigned().notNullable().references('areas.id').onDelete('CASCADE');
     });
   }
 

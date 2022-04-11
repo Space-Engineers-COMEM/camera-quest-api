@@ -1,13 +1,13 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema';
 
-export default class Users extends BaseSchema {
-  protected tableName = 'users';
+export default class Areas extends BaseSchema {
+  protected tableName = 'areas';
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id');
-      table.string('email', 50).notNullable();
-      table.string('password').notNullable();
+      table.string('name', 50).notNullable();
+      table.integer('order_num').notNullable();
     });
   }
 

@@ -8,21 +8,25 @@ export default class ResourceSeeder extends BaseSeeder {
         url: 'https.//testaudio.com',
         type: 'audio',
         id_poi: 1,
+        id_lang: 1,
       },
       {
         url: 'https.//testphoto.com',
-        type: 'photo',
+        type: 'image',
         id_poi: 1,
+        id_lang: 1,
       },
       {
         url: 'https.//test2audio.com',
         type: 'audio',
         id_poi: 2,
+        id_lang: 1,
       },
       {
         url: 'https.//test2photo.com',
-        type: 'photo',
+        type: 'image',
         id_poi: 2,
+        id_lang: 1,
       },
     ]);
   }

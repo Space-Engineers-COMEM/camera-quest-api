@@ -28,6 +28,9 @@ export default class Poi extends BaseModel {
   @column()
   public visible: boolean;
 
+  @column()
+  public id_area: number;
+
   @hasMany(() => Resource, {
     foreignKey: 'id_poi',
   })
@@ -36,7 +39,7 @@ export default class Poi extends BaseModel {
   @hasMany(() => Translation, {
     foreignKey: 'id_poi',
   })
-  public translation: HasMany<typeof Translation>;
+  public translations: HasMany<typeof Translation>;
 
   @manyToMany(() => Tag, {
     pivotTable: 'tag_pois',

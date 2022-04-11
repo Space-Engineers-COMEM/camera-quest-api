@@ -13,25 +13,27 @@ export default class PoisController {
   public async index({ response }) {
     try {
       // Search in DB for all POIs
-      const allPOIs = await Database.query().from('pois').select('*').orderBy('id', 'asc');
-      if (allPOIs.length <= 0) return response.status(204);
+      const allPois = await Database.query().from('pois').select('*').orderBy('id', 'asc');
+      if (allPois.length <= 0) return response.status(204);
 
-      let POIsToSend: ResponseAll[] = [];
+      let PoisToSend: ResponseAll[] = [];
 
       //loop to catch each ressoures for each pois
-      for (const poi of allPOIs) {
-        let idPOI = poi.id;
+      for (const poi of allPois) {
+        let idPoi = poi.id;
+
         // Search in DB for the ressources and error handling
-        const resources = await Resource.query().where('id_poi', idPOI).where('type', 'photo');
+        const resources = await Resource.query().where('id_poi', idPoi).where('type', 'photo');
         if (resources.length <= 0) return response.status(204);
-        //building response to send to the user
+        // Building response to send to the user
         const responseToSend: ResponseAll = {
           poi: poi,
           resources: resources[0],
         };
-        POIsToSend.push(responseToSend);
+
+        PoisToSend.push(responseToSend);
       }
-      return response.ok(POIsToSend);
+      return response.ok(PoisToSend);
     } catch (error) {
       response.status(500).send({
         message: `Internal problem server fetching in the database for the all the POIs`,

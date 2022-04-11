@@ -8,7 +8,6 @@ export default class TagPoi extends BaseSchema {
       table.integer('id_tag').unsigned().references('tags.id');
       table.integer('id_poi').unsigned().references('pois.id');
       table.unique(['id_tag', 'id_poi']);
-      table.timestamps(true, true);
     });
   }
 
