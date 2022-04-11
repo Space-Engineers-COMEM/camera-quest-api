@@ -22,10 +22,15 @@ import Route from '@ioc:Adonis/Core/Route';
 
 Route.get('/', 'RootsController.root').middleware('auth');
 
+// Auth routes
+Route.get('/token', 'TokensController.isLoggedIn');
+Route.post('/login', 'AuthController.login');
+Route.post('/logout', 'AuthController.logout');
+
 // Users routes
 Route.group(() => {
-  Route.resource('/users', 'UsersController').only(['index', 'destroy', 'show']).apiOnly();
-  Route.post('/users', 'UsersController.store');
+  Route.resource('/', 'UsersController').only(['index', 'destroy', 'show']).apiOnly();
+  Route.post('/', 'UsersController.store');
 }).prefix('/users');
 
 // Points of interest routes
@@ -34,15 +39,11 @@ Route.group(() => {
   Route.get('/previews/:id', 'PoisController.getPreview');
   Route.get('/previews/', 'PoisController.getPreviews');
   Route.get('/:id/:lang', 'PoisController.getPoiData');
-  Route.resource('/', 'PoisController').only(['index', 'store', 'destroy', 'show']).apiOnly();
 }).prefix('/pois');
+
+Route.resource('/pois', 'PoisController').only(['index', 'store', 'destroy', 'show']).apiOnly();
 
 // Resources routes
 Route.resource('/resources', 'ResourcesController')
   .only(['index', 'store', 'destroy', 'show'])
   .apiOnly();
-
-// Auth routes
-Route.get('/token', 'TokensController.isLoggedIn');
-Route.post('/login', 'AuthController.login');
-Route.post('/logout', 'AuthController.logout');
