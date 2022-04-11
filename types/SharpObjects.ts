@@ -5,7 +5,8 @@ import Tag from 'App/Models/Tag';
 
 type RootInfo = {
   message: string;
-  users_link: string;
+  admin_link: string;
+  pois_link: string;
 };
 
 type Response = {

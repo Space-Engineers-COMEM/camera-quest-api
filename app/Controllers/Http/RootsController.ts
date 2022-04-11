@@ -6,7 +6,8 @@ export default class RootsController {
   public async root() {
     const rootInfo: RootInfo = {
       message: 'Links to begin in this RESTfull API, have a nice trip :)',
-      users_link: `${this.link}users`,
+      admin_link: `${this.link}users`,
+      pois_link: `${this.link}pois`,
     };
     return rootInfo;
   }
