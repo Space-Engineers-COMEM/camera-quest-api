@@ -13,13 +13,11 @@ export default class PoiUpdateValidator {
       rules.unique({ table: 'pois', column: 'title' }),
     ]),
     author: schema.string.optional({ escape: true, trim: true }),
-    periode: schema.string.optional({ escape: true, trim: true }, [
-      rules.minLength(4),
-      rules.maxLength(4),
-    ]),
+    periode: schema.string.optional({ escape: true, trim: true }, [rules.minLength(4)]),
     visible: schema.boolean.optional(),
     area: schema.number.optional(),
     image_url: schema.string.optional({ escape: true, trim: true }, [rules.url()]),
+    location: schema.string.optional({ escape: true, trim: true }),
   });
 
   /**

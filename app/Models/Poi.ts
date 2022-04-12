@@ -34,6 +34,9 @@ export default class Poi extends BaseModel {
   @column()
   public image_url: string;
 
+  @column()
+  public location: string;
+
   @hasMany(() => Resource, {
     foreignKey: 'id_poi',
   })

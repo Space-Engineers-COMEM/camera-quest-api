@@ -13,6 +13,7 @@ export default class PoisSeeder extends BaseSeeder {
         periode: '2015',
         visible: true,
         image_url: 'https://via.placeholder.com/150',
+        location: 'Allemagne',
       },
       {
         azure_tag: 'azureTag1',
@@ -23,6 +24,7 @@ export default class PoisSeeder extends BaseSeeder {
         periode: '2015',
         visible: true,
         image_url: 'https://via.placeholder.com/150',
+        location: 'Suisse',
       },
     ]);
   }
