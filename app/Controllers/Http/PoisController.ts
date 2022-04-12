@@ -123,7 +123,7 @@ export default class PoisController {
   }
 
   public async getPrediction({ request, response }) {
-    let image = request.file('image', {
+    let image = request.file('file', {
       size: '4mb',
       extnames: ['jpg', 'png', 'gif', 'bmp', 'jpeg'],
     });
