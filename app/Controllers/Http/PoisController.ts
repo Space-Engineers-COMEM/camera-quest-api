@@ -90,16 +90,14 @@ export default class PoisController {
       }
       return response.ok(PoisToSend);
     } catch (error) {
-      response.status(500).send({
+      response.internalServerError({
         type: 'error',
         message: `Internal problem server fetching in the database for the all the POIs`,
       });
     }
   }
 
-  public async getPreview({ request, response }) {
-    const id = request.param('id');
-
+  public async getPreview(id: number) {
     try {
       const poi = await Poi.findOrFail(id);
       const images = await Resource.query().where('id_poi', poi.id).where('type', 'image');
@@ -110,15 +108,17 @@ export default class PoisController {
         imagePath: images[0].url,
       };
 
-      return response.ok({
+      return {
+        status: 200,
         type: 'success',
         content: poiPreview,
-      });
+      };
     } catch (error) {
-      return response.internalServerError({
+      return {
+        status: 500,
         type: 'error',
         error: 'Internal problem server fetching in the database for the POI with id ' + id,
-      });
+      };
     }
   }
 
@@ -155,9 +155,11 @@ export default class PoisController {
       const exhibitionNumber = predictionResponse.predictions[0].tagName.split('_')[0];
       const poi = await Poi.findByOrFail('exhibition_number', exhibitionNumber);
 
-      return response.ok({
-        type: 'prediction',
-        content: poi.id,
+      const data = await this.getPreview(poi.id);
+
+      return response.status(data.status).json({
+        type: data.type,
+        content: data.content,
       });
     }
   }
