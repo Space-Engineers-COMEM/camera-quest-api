@@ -1,11 +1,12 @@
-import User from 'App/Models/User';
-import UsersValidator from 'App/Validators/UserValidator';
+// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import TagValidator from 'App/Validators/TagValidator';
 
-export default class UsersController {
+import Tag from 'App/Models/Tag';
+
+export default class TagsController {
   public async index({ response }) {
     try {
-      const results = await User.all();
-      return results;
+      return await Tag.all();
     } catch (error) {
       return response.internalServerError({
         type: 'error',
@@ -16,8 +17,7 @@ export default class UsersController {
 
   public async show({ params, response }) {
     try {
-      const results = await User.query().where('id', params.id);
-      return results;
+      return await Tag.findOrFail(params.id);
     } catch (error) {
       return response.internalServerError({
         type: 'error',
@@ -28,9 +28,9 @@ export default class UsersController {
 
   public async store({ request, response }) {
     try {
-      const data = await request.validate(UsersValidator);
-      const user = await User.create(data);
-      return user;
+      const data = await request.validate(TagValidator);
+      const tag = await Tag.create(data);
+      return tag;
     } catch (error) {
       return response.badRequest({
         type: 'error',
@@ -41,8 +41,8 @@ export default class UsersController {
 
   public async destroy({ params, response }) {
     try {
-      const user = await User.findOrFail(params.id);
-      return await user.delete();
+      const tag = await Tag.findOrFail(params.id);
+      return await tag.delete();
     } catch (error) {
       return response.badRequest({
         type: 'error',

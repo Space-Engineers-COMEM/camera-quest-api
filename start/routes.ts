@@ -36,8 +36,11 @@ Route.resource('/pois', 'PoisController').only(['index', 'store', 'destroy', 'sh
 
 // Resources routes
 Route.resource('/resources', 'ResourcesController')
-  .only(['index', 'store', 'destroy', 'show'])
+  .only(['index', 'store', 'update', 'destroy', 'show'])
   .apiOnly();
+
+// Tags routes
+Route.resource('/tags', 'TagsController').only(['index', 'store', 'destroy', 'show']).apiOnly();
 
 // Auth routes
 Route.get('/token', 'TokensController.isLoggedIn');

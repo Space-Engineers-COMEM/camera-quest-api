@@ -8,9 +8,6 @@ export default class Tag extends BaseModel {
   @column()
   public name: string;
 
-  @column()
-  public attributes: string;
-
   @manyToMany(() => Poi)
-  public skills: ManyToMany<typeof Poi>;
+  public pois: ManyToMany<typeof Poi>;
 }

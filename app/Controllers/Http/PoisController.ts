@@ -15,29 +15,50 @@ const MIN_PROBABILITY = 0.75;
 export default class PoisController {
   public async index({ response }) {
     try {
-      // Search in DB for all POIs
       const pois = await Database.query().from('pois').select('*').orderBy('id', 'asc');
       return response.ok(pois);
     } catch (error) {
-      response.status(500).send({
-        message: `Internal problem server fetching in the database for the all the POIs`,
+      response.internalServerError({
+        type: 'error',
+        content: error.message,
       });
     }
   }
 
-  public async show({ params }) {
-    return await Poi.findOrFail(params.id);
+  public async show({ params, response }) {
+    try {
+      return await Poi.findOrFail(params.id);
+    } catch (error) {
+      return response.internalServerError({
+        type: 'error',
+        content: error.message,
+      });
+    }
   }
 
-  public async store({ request }) {
-    const data = await request.validate(PoisValidator);
-    const poi = await Poi.create(data);
-    return poi;
+  public async store({ request, response }) {
+    try {
+      const data = await request.validate(PoisValidator);
+      const poi = await Poi.create(data);
+      return poi;
+    } catch (error) {
+      return response.badRequest({
+        type: 'error',
+        content: error.messages,
+      });
+    }
   }
 
-  public async destroy({ request }) {
-    const poi = await Poi.findOrFail(request.id);
-    return await poi.delete();
+  public async destroy({ params, response }) {
+    try {
+      const poi = await Poi.findOrFail(params.id);
+      return await poi.delete();
+    } catch (error) {
+      return response.badRequest({
+        type: 'error',
+        content: error.message,
+      });
+    }
   }
 
   public async getPreviews({ response }) {
