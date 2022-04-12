@@ -7,7 +7,7 @@ export default class ResourceValidator {
   public schema = schema.create({
     url: schema.string({}, [rules.url()]),
     type: schema.enum(
-      ['image', 'video', 'audio', 'link'],
+      ['video', 'audio', 'link'],
       [
         // rules.unique({
         //   table: 'resources',

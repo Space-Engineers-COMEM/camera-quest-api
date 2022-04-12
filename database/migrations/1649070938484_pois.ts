@@ -13,6 +13,7 @@ export default class Pois extends BaseSchema {
       table.string('periode').notNullable();
       table.boolean('visible').notNullable();
       table.integer('area').notNullable();
+      table.string('image_url').notNullable();
     });
   }
 

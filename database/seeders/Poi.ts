@@ -12,6 +12,7 @@ export default class PoisSeeder extends BaseSeeder {
         author: 'Nicéphore niépce',
         periode: '2015',
         visible: true,
+        image_url: 'https://via.placeholder.com/150',
       },
       {
         azure_tag: 'azureTag1',
@@ -21,6 +22,7 @@ export default class PoisSeeder extends BaseSeeder {
         author: 'Nicéphore niépce',
         periode: '2015',
         visible: true,
+        image_url: 'https://via.placeholder.com/150',
       },
     ]);
   }

@@ -7,7 +7,7 @@ export default class Resources extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id');
       table.string('url').notNullable();
-      table.enu('type', ['image', 'video', 'audio', 'link']).notNullable();
+      table.enu('type', ['video', 'audio', 'link']).notNullable();
       table.integer('id_poi').unsigned().notNullable().references('pois.id').onDelete('CASCADE');
       table
         .integer('id_lang')

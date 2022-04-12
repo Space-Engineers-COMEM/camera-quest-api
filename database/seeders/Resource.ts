@@ -12,7 +12,7 @@ export default class ResourceSeeder extends BaseSeeder {
       },
       {
         url: 'http://localhost:3333/images/image.JPG',
-        type: 'image',
+        type: 'video',
         id_poi: 1,
         id_lang: 1,
       },
@@ -24,7 +24,7 @@ export default class ResourceSeeder extends BaseSeeder {
       },
       {
         url: 'https.//test2photo.com',
-        type: 'image',
+        type: 'video',
         id_poi: 2,
         id_lang: 1,
       },

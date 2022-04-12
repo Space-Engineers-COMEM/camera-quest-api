@@ -16,6 +16,7 @@ export default class PoiValidator {
     periode: schema.string({ escape: true, trim: true }, [rules.minLength(4), rules.maxLength(4)]),
     visible: schema.boolean(),
     area: schema.number(),
+    image_url: schema.string({ escape: true, trim: true }, [rules.url()]),
   });
 
   /**

@@ -31,6 +31,9 @@ export default class Poi extends BaseModel {
   @column()
   public area: number;
 
+  @column()
+  public image_url: string;
+
   @hasMany(() => Resource, {
     foreignKey: 'id_poi',
   })
