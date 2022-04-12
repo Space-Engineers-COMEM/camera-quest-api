@@ -1,12 +1,12 @@
 import { schema, rules } from '@ioc:Adonis/Core/Validator';
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 
-export default class ResourceValidator {
+export default class ResourceUpdateValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    url: schema.string({}, [rules.url()]),
-    type: schema.enum(
+    url: schema.string.optional({}, [rules.url()]),
+    type: schema.enum.optional(
       ['image', 'video', 'audio', 'link'],
       [
         rules.unique({
@@ -19,8 +19,8 @@ export default class ResourceValidator {
         }),
       ]
     ),
-    id_poi: schema.number([rules.exists({ table: 'pois', column: 'id' })]),
-    id_lang: schema.number([rules.exists({ table: 'languages', column: 'id' })]),
+    id_poi: schema.number.optional([rules.exists({ table: 'pois', column: 'id' })]),
+    id_lang: schema.number.optional([rules.exists({ table: 'languages', column: 'id' })]),
   });
 
   public messages = {};
