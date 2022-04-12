@@ -1,13 +1,13 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import TagValidator from 'App/Validators/TagValidator';
 
-import Tag from 'App/Models/Tag';
-import TagUpdateValidator from 'App/Validators/TagUpdateValidator';
+import Language from 'App/Models/Language';
+import LanguageUpdateValidator from 'App/Validators/LanguageUpdateValidator';
+import LanguageValidator from 'App/Validators/LanguageValidator';
 
-export default class TagsController {
+export default class LanguagesController {
   public async index({ response }) {
     try {
-      return await Tag.all();
+      return await Language.all();
     } catch (error) {
       return response.internalServerError({
         type: 'error',
@@ -18,7 +18,7 @@ export default class TagsController {
 
   public async show({ params, response }) {
     try {
-      return await Tag.findOrFail(params.id);
+      return await Language.findOrFail(params.id);
     } catch (error) {
       return response.internalServerError({
         type: 'error',
@@ -29,9 +29,9 @@ export default class TagsController {
 
   public async store({ request, response }) {
     try {
-      const data = await request.validate(TagValidator);
-      const tag = await Tag.create(data);
-      return tag;
+      const data = await request.validate(LanguageValidator);
+      const language = await Language.create(data);
+      return language;
     } catch (error) {
       return response.badRequest({
         type: 'error',
@@ -41,14 +41,14 @@ export default class TagsController {
   }
 
   public async update({ params, request, response }) {
-    const data = await request.validate(TagUpdateValidator);
+    const data = await request.validate(LanguageUpdateValidator);
     console.log(data);
     const id = params.id;
     try {
-      const tag = await Tag.findOrFail(id);
-      tag.merge(data);
-      await tag.save();
-      return tag;
+      const language = await Language.findOrFail(id);
+      language.merge(data);
+      await language.save();
+      return language;
     } catch (error) {
       return response.internalServerError({
         type: 'error',
@@ -59,8 +59,8 @@ export default class TagsController {
 
   public async destroy({ params, response }) {
     try {
-      const tag = await Tag.findOrFail(params.id);
-      return await tag.delete();
+      const language = await Language.findOrFail(params.id);
+      return await language.delete();
     } catch (error) {
       return response.badRequest({
         type: 'error',

@@ -1,16 +1,21 @@
 import { schema, rules } from '@ioc:Adonis/Core/Validator';
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 
-export default class PoisValidator {
+export default class PoiValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
     azure_tag: schema.string({ escape: true, trim: true }),
-    exhibition_number: schema.number(),
-    title: schema.string({ escape: true, trim: true }),
+    exhibition_number: schema.number([
+      rules.unique({ table: 'pois', column: 'exhibition_number' }),
+    ]),
+    title: schema.string({ escape: true, trim: true }, [
+      rules.unique({ table: 'pois', column: 'title' }),
+    ]),
     author: schema.string({ escape: true, trim: true }),
     periode: schema.string({ escape: true, trim: true }, [rules.minLength(4), rules.maxLength(4)]),
     visible: schema.boolean(),
+    area: schema.number(),
   });
 
   /**

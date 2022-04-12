@@ -27,12 +27,6 @@ Route.get('/token', 'TokensController.isLoggedIn');
 Route.post('/login', 'AuthController.login');
 Route.post('/logout', 'AuthController.logout');
 
-// Users routes
-Route.group(() => {
-  Route.resource('/', 'UsersController').only(['index', 'destroy', 'show']).apiOnly();
-  Route.post('/', 'UsersController.store');
-}).prefix('/users');
-
 // Points of interest routes
 Route.group(() => {
   Route.post('/prediction', 'PoisController.getPrediction');
@@ -41,7 +35,15 @@ Route.group(() => {
   Route.get('/:id/:lang', 'PoisController.getPoiData');
 }).prefix('/pois');
 
-Route.resource('/pois', 'PoisController').only(['index', 'store', 'destroy', 'show']).apiOnly();
+Route.resource('/pois', 'PoisController')
+  .only(['index', 'store', 'update', 'destroy', 'show'])
+  .apiOnly();
+
+// Users routes
+Route.group(() => {
+  Route.resource('/', 'UsersController').only(['index', 'destroy', 'show']).apiOnly();
+  Route.post('/', 'UsersController.store');
+}).prefix('/users');
 
 // Resources routes
 Route.resource('/resources', 'ResourcesController')
@@ -49,4 +51,16 @@ Route.resource('/resources', 'ResourcesController')
   .apiOnly();
 
 // Tags routes
-Route.resource('/tags', 'TagsController').only(['index', 'store', 'destroy', 'show']).apiOnly();
+Route.resource('/tags', 'TagsController')
+  .only(['index', 'store', 'update', 'destroy', 'show'])
+  .apiOnly();
+
+// Languages routes
+Route.resource('/languages', 'LanguagesController')
+  .only(['index', 'store', 'update', 'destroy', 'show'])
+  .apiOnly();
+
+// Translations routes
+Route.resource('/translations', 'TranslationsController')
+  .only(['index', 'store', 'update', 'destroy', 'show'])
+  .apiOnly();

@@ -3,12 +3,13 @@ import TranslationModel from 'App/Models/Translation';
 import Resource from 'App/Models/Resource';
 import Tag from 'App/Models/Tag';
 import TagPoi from 'App/Models/TagPoi';
-import PoisValidator from 'App/Validators/PoisValidator';
+import PoiValidator from 'App/Validators/PoiValidator';
 import { PoiListed, PoiPreview, Response } from '../../../types/SharpObjects';
 import Database from '@ioc:Adonis/Lucid/Database';
 import Drive from '@ioc:Adonis/Core/Drive';
 import Env from '@ioc:Adonis/Core/Env';
 import fetch from 'cross-fetch';
+import PoiUpdateValidator from 'App/Validators/PoiUpdateValidator';
 
 const MIN_PROBABILITY = 0.75;
 
@@ -38,13 +39,29 @@ export default class PoisController {
 
   public async store({ request, response }) {
     try {
-      const data = await request.validate(PoisValidator);
+      const data = await request.validate(PoiValidator);
       const poi = await Poi.create(data);
       return poi;
     } catch (error) {
       return response.badRequest({
         type: 'error',
         content: error.messages,
+      });
+    }
+  }
+
+  public async update({ params, request, response }) {
+    const data = await request.validate(PoiUpdateValidator);
+    const id = params.id;
+    try {
+      const poi = await Poi.findOrFail(id);
+      poi.merge(data);
+      await poi.save();
+      return poi;
+    } catch (error) {
+      return response.internalServerError({
+        type: 'error',
+        content: error.message,
       });
     }
   }

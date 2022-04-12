@@ -9,14 +9,14 @@ export default class ResourceValidator {
     type: schema.enum(
       ['image', 'video', 'audio', 'link'],
       [
-        rules.unique({
-          table: 'resources',
-          column: 'type',
-          where: {
-            id_poi: this.ctx.request.all().id_poi,
-            id_lang: this.ctx.request.all().id_lang,
-          },
-        }),
+        // rules.unique({
+        //   table: 'resources',
+        //   column: 'type',
+        //   where: {
+        //     id_poi: this.ctx.request.all().id_poi,
+        //     id_lang: this.ctx.request.all().id_lang,
+        //   },
+        // }),
       ]
     ),
     id_poi: schema.number([rules.exists({ table: 'pois', column: 'id' })]),

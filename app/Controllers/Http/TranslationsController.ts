@@ -1,13 +1,13 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import TagValidator from 'App/Validators/TagValidator';
 
-import Tag from 'App/Models/Tag';
-import TagUpdateValidator from 'App/Validators/TagUpdateValidator';
+import Translation from 'App/Models/Translation';
+import TranslationUpdateValidator from 'App/Validators/TranslationUpdateValidator';
+import TranslationValidator from 'App/Validators/TranslationValidator';
 
-export default class TagsController {
+export default class TranslationsController {
   public async index({ response }) {
     try {
-      return await Tag.all();
+      return await Translation.all();
     } catch (error) {
       return response.internalServerError({
         type: 'error',
@@ -18,7 +18,7 @@ export default class TagsController {
 
   public async show({ params, response }) {
     try {
-      return await Tag.findOrFail(params.id);
+      return await Translation.findOrFail(params.id);
     } catch (error) {
       return response.internalServerError({
         type: 'error',
@@ -29,10 +29,11 @@ export default class TagsController {
 
   public async store({ request, response }) {
     try {
-      const data = await request.validate(TagValidator);
-      const tag = await Tag.create(data);
-      return tag;
+      const data = await request.validate(TranslationValidator);
+      const translation = await Translation.create(data);
+      return translation;
     } catch (error) {
+      console.log(error);
       return response.badRequest({
         type: 'error',
         content: error.messages,
@@ -41,14 +42,13 @@ export default class TagsController {
   }
 
   public async update({ params, request, response }) {
-    const data = await request.validate(TagUpdateValidator);
-    console.log(data);
+    const data = await request.validate(TranslationUpdateValidator);
     const id = params.id;
     try {
-      const tag = await Tag.findOrFail(id);
-      tag.merge(data);
-      await tag.save();
-      return tag;
+      const translation = await Translation.findOrFail(id);
+      translation.merge(data);
+      await translation.save();
+      return translation;
     } catch (error) {
       return response.internalServerError({
         type: 'error',
@@ -59,8 +59,8 @@ export default class TagsController {
 
   public async destroy({ params, response }) {
     try {
-      const tag = await Tag.findOrFail(params.id);
-      return await tag.delete();
+      const translation = await Translation.findOrFail(params.id);
+      return await translation.delete();
     } catch (error) {
       return response.badRequest({
         type: 'error',
