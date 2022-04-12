@@ -30,7 +30,6 @@ Route.post('/logout', 'AuthController.logout');
 // Points of interest routes
 Route.group(() => {
   Route.post('/prediction', 'PoisController.getPrediction');
-  Route.get('/previews/:id', 'PoisController.getPreview');
   Route.get('/previews/', 'PoisController.getPreviews');
   Route.get('/:id/:lang', 'PoisController.getPoiData');
 }).prefix('/pois');

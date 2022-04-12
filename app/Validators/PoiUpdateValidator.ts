@@ -19,6 +19,7 @@ export default class PoiUpdateValidator {
     ]),
     visible: schema.boolean.optional(),
     area: schema.number.optional(),
+    image_url: schema.string.optional({ escape: true, trim: true }, [rules.url()]),
   });
 
   /**

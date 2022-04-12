@@ -90,16 +90,13 @@ export default class PoisController {
 
       let PoisToSend: PoiListed[] = [];
 
-      //loop to catch each ressoures for each pois
+      // Loop to catch each ressoures for each pois
       for (const poi of allPois) {
-        // Search in DB for the images
-        const images = await Resource.query().where('id_poi', poi.id).where('type', 'image');
-
         // Building response to send to the user
         const responseToSend: PoiListed = {
           id: poi.id,
           title: poi.title,
-          imagePath: images[0].url,
+          imagePath: poi.image_url,
           area: poi.area,
         };
 
@@ -117,12 +114,11 @@ export default class PoisController {
   public async getPreview(id: number) {
     try {
       const poi = await Poi.findOrFail(id);
-      const images = await Resource.query().where('id_poi', poi.id).where('type', 'image');
 
       const poiPreview: PoiPreview = {
         id: poi.id,
         title: poi.title,
-        imagePath: images[0].url,
+        imagePath: poi.image_url,
       };
 
       return {
