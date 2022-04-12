@@ -50,8 +50,3 @@ Route.resource('/resources', 'ResourcesController')
 
 // Tags routes
 Route.resource('/tags', 'TagsController').only(['index', 'store', 'destroy', 'show']).apiOnly();
-
-// Auth routes
-Route.get('/token', 'TokensController.isLoggedIn');
-Route.post('/login', 'AuthController.login');
-Route.post('/logout', 'AuthController.logout');
