@@ -20,7 +20,7 @@
 
 import Route from '@ioc:Adonis/Core/Route';
 
-Route.get('/', 'RootsController.root');
+Route.get('/', 'RootsController.root').middleware('auth');
 
 // Auth routes
 Route.get('/token', 'TokensController.isLoggedIn');
