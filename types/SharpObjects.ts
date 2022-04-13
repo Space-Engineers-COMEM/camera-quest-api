@@ -27,11 +27,4 @@ type PoiPreview = {
   imagePath: string;
 };
 
-type PoiListed = {
-  id: number;
-  title: string;
-  imagePath: string;
-  area: number;
-};
-
-export { RootInfo, Response, ResponseAll, PoiPreview, PoiListed };
+export { RootInfo, Response, ResponseAll, PoiPreview };

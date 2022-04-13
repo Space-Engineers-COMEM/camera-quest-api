@@ -4,7 +4,7 @@ import Resource from 'App/Models/Resource';
 import Tag from 'App/Models/Tag';
 import TagPoi from 'App/Models/TagPoi';
 import PoiValidator from 'App/Validators/PoiValidator';
-import { PoiListed, PoiPreview, Response } from '../../../types/SharpObjects';
+import { PoiPreview, Response } from '../../../types/SharpObjects';
 import Database from '@ioc:Adonis/Lucid/Database';
 import Drive from '@ioc:Adonis/Core/Drive';
 import Env from '@ioc:Adonis/Core/Env';
@@ -14,6 +14,11 @@ import PoiUpdateValidator from 'App/Validators/PoiUpdateValidator';
 const MIN_PROBABILITY = 0.75;
 
 export default class PoisController {
+  /**
+   * It queries the database for all the POIs and returns them in an array
+   * @param  - response - This is the response object that is passed to the controller.
+   * @returns The response object with all the POIS is being returned.
+   */
   public async index({ response }) {
     try {
       const pois = await Database.query().from('pois').select('*').orderBy('id', 'asc');
@@ -26,6 +31,12 @@ export default class PoisController {
     }
   }
 
+  /**
+   * It returns a single POI from the database, or an error if the POI doesn't
+   * exist
+   * @param  - params - The parameters passed to the route.
+   * @returns The POI is being returned.
+   */
   public async show({ params, response }) {
     try {
       return await Poi.findOrFail(params.id);
@@ -37,6 +48,11 @@ export default class PoisController {
     }
   }
 
+  /**
+   * It receives a request, validates it, creates a new Poi and returns it
+   * @param  - request - The request object.
+   * @returns The POI is being returned.
+   */
   public async store({ request, response }) {
     try {
       const data = await request.validate(PoiValidator);
@@ -50,6 +66,12 @@ export default class PoisController {
     }
   }
 
+  /**
+   * It takes the request data, validates it, finds the poi by id, merges the data, saves it, and
+   * returns the POI
+   * @param  - params - The parameters of the request.
+   * @returns The updated POI
+   */
   public async update({ params, request, response }) {
     const data = await request.validate(PoiUpdateValidator);
     const id = params.id;
@@ -66,6 +88,11 @@ export default class PoisController {
     }
   }
 
+  /**
+   * It finds a POI by id, and if it exists, it deletes it
+   * @param  - params - This is the parameters that are passed in the URL.
+   * @returns The response is being returned.
+   */
   public async destroy({ params, response }) {
     try {
       const poi = await Poi.findOrFail(params.id);
@@ -78,40 +105,12 @@ export default class PoisController {
     }
   }
 
-  public async getPreviews({ response }) {
-    try {
-      // Search in DB for all POIs
-      const allPois = await Database.query().from('pois').select('*').orderBy('id', 'asc');
-      if (allPois.length <= 0)
-        return response.ok({
-          type: 'error',
-          content: 'No POIs in the database',
-        });
-
-      let PoisToSend: PoiListed[] = [];
-
-      // Loop to catch each ressoures for each pois
-      for (const poi of allPois) {
-        // Building response to send to the user
-        const responseToSend: PoiListed = {
-          id: poi.id,
-          title: poi.title,
-          imagePath: poi.image_url,
-          area: poi.area,
-        };
-
-        PoisToSend.push(responseToSend);
-      }
-      return response.ok(PoisToSend);
-    } catch (error) {
-      response.internalServerError({
-        type: 'error',
-        message: `Internal problem server fetching in the database for the all the POIs`,
-      });
-    }
-  }
-
-  public async getPreview(id: number) {
+  /**
+   * It fetches a POI from the database and returns it as a POIPreview object
+   * @param {number} id - The id of the POI to be fetched.
+   * @returns An object with the status, type, and content of the response.
+   */
+  private async getPreview(id: number) {
     try {
       const poi = await Poi.findOrFail(id);
 
@@ -135,6 +134,12 @@ export default class PoisController {
     }
   }
 
+  /**
+   * It gets the image from the request, calls the prediction API, checks if the prediction was
+   * successful, and returns the POI data if it was
+   * @param  - request - The request object
+   * @returns The response is being returned.
+   */
   public async getPrediction({ request, response }) {
     let image = request.file('file', {
       size: '4mb',
@@ -177,6 +182,11 @@ export default class PoisController {
     }
   }
 
+  /**
+   * It fetches all the POI data in a specific language from the database and returns it in a JSON format
+   * @param  - request: The request object.
+   * @returns the POI data for a given id and language.
+   */
   public async getPoiData({ request, response }) {
     const id = request.param('id');
     const lang = request.param('lang');

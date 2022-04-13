@@ -1,10 +1,13 @@
-// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-
 import Language from 'App/Models/Language';
 import LanguageUpdateValidator from 'App/Validators/LanguageUpdateValidator';
 import LanguageValidator from 'App/Validators/LanguageValidator';
 
 export default class LanguagesController {
+  /**
+   * It returns all the languages in the database
+   * @param  - response - The response object
+   * @returns All the languages in the database.
+   */
   public async index({ response }) {
     try {
       return await Language.all();
@@ -16,6 +19,11 @@ export default class LanguagesController {
     }
   }
 
+  /**
+   * It returns the language with the given id
+   * @param  - params - This is the parameters that are passed in the URL.
+   * @returns The language with the id that was passed in the params.
+   */
   public async show({ params, response }) {
     try {
       return await Language.findOrFail(params.id);
@@ -27,6 +35,11 @@ export default class LanguagesController {
     }
   }
 
+  /**
+   * It validates the request data, creates a new language, and returns the language
+   * @param  - request - The request object.
+   * @returns The language object
+   */
   public async store({ request, response }) {
     try {
       const data = await request.validate(LanguageValidator);
@@ -40,6 +53,12 @@ export default class LanguagesController {
     }
   }
 
+  /**
+   * It takes the id of the language to be updated from the request parameters, finds the language in
+   * the database, merges the new data with the old data, and saves the language
+   * @param  - params - The route parameters.
+   * @returns The language object
+   */
   public async update({ params, request, response }) {
     const data = await request.validate(LanguageUpdateValidator);
     console.log(data);
@@ -57,6 +76,11 @@ export default class LanguagesController {
     }
   }
 
+  /**
+   * It finds a language by its id, and if it exists, it deletes it
+   * @param  - params - This is the parameters that are passed in the URL.
+   * @returns The language that was deleted.
+   */
   public async destroy({ params, response }) {
     try {
       const language = await Language.findOrFail(params.id);
