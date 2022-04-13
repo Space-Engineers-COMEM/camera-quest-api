@@ -8,9 +8,6 @@ export default class Poi extends BaseModel {
   public id: number;
 
   @column()
-  public stage: number;
-
-  @column()
   public exhibition_number: number;
 
   @column()
