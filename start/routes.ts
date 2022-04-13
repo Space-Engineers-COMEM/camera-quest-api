@@ -20,8 +20,6 @@
 
 import Route from '@ioc:Adonis/Core/Route';
 
-Route.get('/', 'RootsController.root').middleware('auth');
-
 // Auth routes
 Route.get('/token', 'TokensController.isLoggedIn');
 Route.post('/login', 'AuthController.login');
@@ -65,3 +63,7 @@ Route.resource('/translations', 'TranslationsController')
 
 // /!\ DEBUG /!\ À SUPPRIMER AVANT DEPLOY /!\
 Route.post('/pois/prediction/debug', 'PoisController.getPredictionDebug');
+
+Route.get('*', () => {
+  return 'Toutes les routes mènent chez Denis, mais pas celle-ci.';
+});
