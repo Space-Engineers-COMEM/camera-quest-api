@@ -5,16 +5,15 @@ export default class PoiUpdateValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    azure_tag: schema.string.optional({ escape: true, trim: true }),
     exhibition_number: schema.number.optional([
       rules.unique({ table: 'pois', column: 'exhibition_number' }),
     ]),
     title: schema.string.optional({ escape: true, trim: true }, [
       rules.unique({ table: 'pois', column: 'title' }),
     ]),
-    author: schema.string.optional({ escape: true, trim: true }),
+    manufacturer: schema.string.optional({ escape: true, trim: true }),
     periode: schema.string.optional({ escape: true, trim: true }, [rules.minLength(4)]),
-    visible: schema.boolean.optional(),
+    archived: schema.boolean.optional(),
     area: schema.number.optional(),
     image_url: schema.string.optional({ escape: true, trim: true }, [rules.url()]),
     location: schema.string.optional({ escape: true, trim: true }),

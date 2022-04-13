@@ -11,22 +11,19 @@ export default class Poi extends BaseModel {
   public stage: number;
 
   @column()
-  public azure_tag: string;
-
-  @column()
   public exhibition_number: number;
 
   @column()
   public title: string;
 
   @column()
-  public author: string;
+  public manufacturer: string;
 
   @column()
   public periode: string;
 
   @column()
-  public visible: boolean;
+  public archived: boolean;
 
   @column()
   public area: number;
