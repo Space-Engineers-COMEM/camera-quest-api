@@ -8,9 +8,6 @@ export default class Resource extends BaseModel {
   public url: string;
 
   @column()
-  public type: string;
-
-  @column()
   public id_poi: number;
 
   @column()

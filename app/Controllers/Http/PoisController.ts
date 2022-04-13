@@ -253,4 +253,38 @@ export default class PoisController {
     const predictionResponse = await predictionRequest.json();
     return predictionResponse;
   }
+
+  //  /!\ DEBUG /!\ À SUPPRIMER AVANT DEPLOY /!\
+  public async getPredictionDebug({ response }) {
+    // Get the prediction
+    let content = {
+      Url: 'https://media.gettyimages.com/photos/invented-by-the-italian-photographer-carlo-ponti-the-megalethoscope-picture-id90728156',
+    };
+
+    const predictionRequest = await fetch(
+      'https://southcentralus.api.cognitive.microsoft.com/customvision/v3.0/Prediction/4a1d8e71-51d8-4d21-a31a-b906f347aff7/classify/iterations/Iteration1/url',
+      {
+        method: 'post',
+        body: JSON.stringify(content),
+        headers: {
+          'Content-Type': 'application/json',
+          'Prediction-Key': Env.get('PREDICTION_API_KEY'),
+        },
+      }
+    );
+
+    const predictionResponse = await predictionRequest.json();
+    console.log(predictionResponse);
+
+    // Return the POI from the prediction and all its data
+    const exhibitionNumber = predictionResponse.predictions[0].tagName.split('_')[0];
+    const poi = await Poi.findByOrFail('exhibition_number', exhibitionNumber);
+
+    const data = await this.getPreview(poi.id);
+
+    return response.status(data.status).json({
+      type: data.type,
+      content: data.content,
+    });
+  }
 }
