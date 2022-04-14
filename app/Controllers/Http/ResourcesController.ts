@@ -60,11 +60,12 @@ export default class ResourcesController {
       const today = Date.now();
       coverImage.clientName = `${today}_${coverImage.clientName}`;
       await coverImage.move('public/images');
-      const url = `${Env.get('BASE_URL')}/images/${coverImage.fileName}`;
+      const url = `${Env.get('BASE_URL')}images/${coverImage.fileName}`;
       const ObjectToStore: ObjectToStore = {
         url: url,
         id_poi: data.id_poi,
         id_lang: data.id_lang,
+        test: coverImage.tmpPath,
       };
       const resource = await Resource.create(ObjectToStore);
       return resource;
