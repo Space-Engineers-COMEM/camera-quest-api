@@ -28,4 +28,4 @@ type ObjectToStore = {
   test: string;
 };
 
-export { Response, ResponseAll, PoiPreview, ObjectToStore };
+export { ResponseAll, PoiPreview, ObjectToStore };
