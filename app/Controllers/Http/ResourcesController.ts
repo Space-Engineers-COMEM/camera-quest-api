@@ -56,7 +56,7 @@ export default class ResourcesController {
           content: coverImage.errors,
         });
       }
-      //creating a unique name for the image
+
       const today = Date.now();
       coverImage.clientName = `${today}_${coverImage.clientName}`;
       await coverImage.move('public/images');
