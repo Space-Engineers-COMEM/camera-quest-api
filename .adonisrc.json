@@ -6,9 +6,6 @@
     "@adonisjs/repl/build/commands",
     "@adonisjs/lucid/build/commands"
   ],
-  "directories": {
-    "public": "assets"
-  },
   "exceptionHandlerNamespace": "App/Exceptions/Handler",
   "aliases": {
     "App": "app",
@@ -16,12 +13,6 @@
     "Database": "database",
     "Contracts": "contracts"
   },
-  "metaFiles": [
-    {
-      "pattern": "assets/**",
-      "reloadServer": false
-    }
-  ],
   "preloads": [
     "./start/routes",
     "./start/kernel"
