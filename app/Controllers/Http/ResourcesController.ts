@@ -2,6 +2,8 @@
 import Resource from 'App/Models/Resource';
 import ResourceValidator from 'App/Validators/ResourceValidator';
 import ResourceUpdateValidator from 'App/Validators/ResourceUpdateValidator';
+import Env from '@ioc:Adonis/Core/Env';
+import { ObjectToStore } from '../../../types/SharpObjects';
 
 export default class ResourcesController {
   /**
@@ -36,21 +38,40 @@ export default class ResourcesController {
     }
   }
 
-  /**
-   * It validates the request data using the ResourceValidator, then creates a new resource using the
-   * validated data
-   * @param  - request - The request object.
-   * @returns The resource that was created.
-   */
   public async store({ request, response }) {
     try {
       const data = await request.validate(ResourceValidator);
-      const resource = await Resource.create(data);
+      const coverImage = request.file('image', {
+        extnames: ['jpg'],
+      });
+      if (!coverImage) {
+        return response.badRequest({
+          type: 'error',
+          content: 'no image with the key "image" sent',
+        });
+      }
+      if (!coverImage.isValid) {
+        return response.badRequest({
+          type: 'error',
+          content: coverImage.errors,
+        });
+      }
+      //creating a unique name for the image
+      const today = Date.now();
+      coverImage.clientName = `${today}_${coverImage.clientName}`;
+      await coverImage.move('public/images');
+      const url = `${Env.get('BASE_URL')}/images/${coverImage.fileName}`;
+      const ObjectToStore: ObjectToStore = {
+        url: url,
+        id_poi: data.id_poi,
+        id_lang: data.id_lang,
+      };
+      const resource = await Resource.create(ObjectToStore);
       return resource;
     } catch (error) {
-      return response.badRequest({
+      return response.internalServerError({
         type: 'error',
-        content: error.messages,
+        content: error.message,
       });
     }
   }

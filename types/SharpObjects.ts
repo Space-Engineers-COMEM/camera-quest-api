@@ -27,4 +27,10 @@ type PoiPreview = {
   imagePath: string;
 };
 
-export { RootInfo, Response, ResponseAll, PoiPreview };
+type ObjectToStore = {
+  url: string;
+  id_poi: number;
+  id_lang: number;
+};
+
+export { RootInfo, Response, ResponseAll, PoiPreview, ObjectToStore };
