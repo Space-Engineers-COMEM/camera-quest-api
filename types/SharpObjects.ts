@@ -3,12 +3,6 @@ import TranslationModel from 'App/Models/Translation';
 import Resource from 'App/Models/Resource';
 import Tag from 'App/Models/Tag';
 
-type RootInfo = {
-  message: string;
-  admin_link: string;
-  pois_link: string;
-};
-
 type Response = {
   poi: Poi;
   translations: TranslationModel[];
@@ -34,4 +28,4 @@ type ObjectToStore = {
   test: string;
 };
 
-export { RootInfo, Response, ResponseAll, PoiPreview, ObjectToStore };
+export { Response, ResponseAll, PoiPreview, ObjectToStore };
