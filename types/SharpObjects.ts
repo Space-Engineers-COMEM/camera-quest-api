@@ -25,7 +25,6 @@ type ObjectToStore = {
   url: string;
   id_poi: number;
   id_lang: number;
-  test: string;
 };
 
 export { Response, ResponseAll, PoiPreview, ObjectToStore };

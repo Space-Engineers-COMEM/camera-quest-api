@@ -65,10 +65,9 @@ export default class ResourcesController {
         url: url,
         id_poi: data.id_poi,
         id_lang: data.id_lang,
-        test: coverImage.tmpPath,
       };
       const resource = await Resource.create(ObjectToStore);
-      return resource;
+      return `${resource} + ${coverImage.tmpPath}`;
     } catch (error) {
       return response.internalServerError({
         type: 'error',
