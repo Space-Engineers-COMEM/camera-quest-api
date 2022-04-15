@@ -53,7 +53,7 @@ const driveConfig: DriveConfig = {
       | files.
       |
       */
-      root: 'public',
+      root: `${Env.get('URL_DRIVE')}/public`,
 
       /*
       |--------------------------------------------------------------------------
