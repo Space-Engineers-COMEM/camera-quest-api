@@ -65,5 +65,5 @@ Route.resource('/translations', 'TranslationsController')
 Route.post('/pois/prediction/debug', 'PoisController.getPredictionDebug');
 
 // Route.get('*', () => {
-//   return 'Toutes les routes mènent à Denis, mais pas celle-ci! ¯\\_(ツ)_/¯ ! ';
+//   return 'Toutes les routes mènent à Denis, mais pas celle-ci! ¯\\_(ツ)_/¯  ';
 // });
