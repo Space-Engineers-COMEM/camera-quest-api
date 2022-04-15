@@ -59,6 +59,8 @@ export default class ResourcesController {
 
       const today = Date.now();
       coverImage.clientName = `${today}_${coverImage.clientName}`;
+      console.log(coverImage.clientName);
+      console.log(Env.get('PUBLIC_STATIC_FILE'));
       await coverImage.move(`${Env.get('PUBLIC_STATIC_FILE')}images`);
       const url = `${Env.get('BASE_URL')}images/${coverImage.fileName}`;
       const ObjectToStore: ObjectToStore = {
@@ -67,7 +69,7 @@ export default class ResourcesController {
         id_lang: data.id_lang,
       };
       const resource = await Resource.create(ObjectToStore);
-      return `${resource} + ${coverImage.tmpPath}`;
+      return resource;
     } catch (error) {
       return response.internalServerError({
         type: 'error',
