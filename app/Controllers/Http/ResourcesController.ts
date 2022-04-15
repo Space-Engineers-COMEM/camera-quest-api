@@ -47,7 +47,7 @@ export default class ResourcesController {
       if (!coverImage) {
         return response.badRequest({
           type: 'error',
-          content: 'no image with the key "image" sent',
+          content: 'no picture with the key "image" sent',
         });
       }
       if (!coverImage.isValid) {
