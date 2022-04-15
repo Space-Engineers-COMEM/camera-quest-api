@@ -1,9 +1,9 @@
-// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Resource from 'App/Models/Resource';
 import ResourceValidator from 'App/Validators/ResourceValidator';
 import ResourceUpdateValidator from 'App/Validators/ResourceUpdateValidator';
 import Env from '@ioc:Adonis/Core/Env';
-import { ObjectToStore } from '../../../types/SharpObjects';
+import { ImageToStore } from '../../../types/SharpObjects';
+import Drive from '@ioc:Adonis/Core/Drive';
 
 export default class ResourcesController {
   /**
@@ -62,8 +62,9 @@ export default class ResourcesController {
       coverImage.clientName = `${today}_${coverImage.clientName}`;
       await coverImage.move(`${Env.get('URL_IMAGE')}`);
       const url = `${Env.get('BASE_URL')}images/${coverImage.fileName}`;
-      const ObjectToStore: ObjectToStore = {
+      const ObjectToStore: ImageToStore = {
         url: url,
+        name: coverImage.clientName,
         id_poi: data.id_poi,
         id_lang: data.id_lang,
       };
@@ -84,10 +85,24 @@ export default class ResourcesController {
    */
   public async update({ params, request, response }) {
     const data = await request.validate(ResourceUpdateValidator);
+    const coverImage = request.file('image', {
+      extnames: ['jpg'],
+    });
     const id = params.id;
     try {
       const resource = await Resource.findOrFail(id);
-      resource.merge(data);
+      await Drive.delete(`images/${resource.name}`);
+      const today = Date.now();
+      coverImage.clientName = `${today}_${coverImage.clientName}`;
+      await coverImage.move(`${Env.get('URL_IMAGE')}`);
+      const url = `${Env.get('BASE_URL')}images/${coverImage.fileName}`;
+      const ObjectToStore: ImageToStore = {
+        url: url,
+        name: coverImage.clientName,
+        id_poi: data.id_poi,
+        id_lang: data.id_lang,
+      };
+      resource.merge(ObjectToStore);
       await resource.save();
       return resource;
     } catch (error) {
@@ -106,7 +121,18 @@ export default class ResourcesController {
   public async destroy({ params, response }) {
     try {
       const resource = await Resource.findOrFail(params.id);
-      return await resource.delete();
+      if (!(await Drive.exists(`images/${resource.name}`))) {
+        return response.badRequest({
+          type: 'error',
+          content: "Image doesn't exist",
+        });
+      }
+      await Drive.delete(`images/${resource.name}`);
+      await resource.delete();
+      return response.ok({
+        type: 'sucess',
+        content: 'resource deleted',
+      });
     } catch (error) {
       return response.badRequest({
         type: 'error',

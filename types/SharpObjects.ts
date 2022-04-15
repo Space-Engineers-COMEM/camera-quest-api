@@ -21,10 +21,11 @@ type PoiPreview = {
   imagePath: string;
 };
 
-type ObjectToStore = {
+type ImageToStore = {
   url: string;
+  name: string;
   id_poi: number;
   id_lang: number;
 };
 
-export { Response, ResponseAll, PoiPreview, ObjectToStore };
+export { Response, ResponseAll, PoiPreview, ImageToStore };

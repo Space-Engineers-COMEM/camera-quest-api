@@ -53,7 +53,7 @@ const driveConfig: DriveConfig = {
       | files.
       |
       */
-      root: Application.tmpPath('uploads'),
+      root: 'public',
 
       /*
       |--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ const driveConfig: DriveConfig = {
       | storage services that has inbuilt capabilities to serve files.
       |
       */
-      serveFiles: true,
+      serveFiles: false,
 
       /*
       |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ const driveConfig: DriveConfig = {
       | you are not registering routes with this prefix.
       |
       */
-      basePath: '/uploads',
+      // basePath: '/uploads',
     },
 
     /*
