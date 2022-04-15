@@ -38,6 +38,7 @@ export default class ResourcesController {
     }
   }
 
+  //not forget to comment
   public async store({ request, response }) {
     try {
       const data = await request.validate(ResourceValidator);
