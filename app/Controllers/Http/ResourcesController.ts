@@ -59,7 +59,7 @@ export default class ResourcesController {
 
       const today = Date.now();
       coverImage.clientName = `${today}_${coverImage.clientName}`;
-      await coverImage.move(`${Env.get('PUBLIC_STATIC_FILE')}images`);
+      await coverImage.move(`${Env.get('URL_IMAGE')}images`);
       const url = `${Env.get('BASE_URL')}images/${coverImage.fileName}`;
       const ObjectToStore: ObjectToStore = {
         url: url,
