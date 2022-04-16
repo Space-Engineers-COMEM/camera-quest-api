@@ -110,24 +110,26 @@ export default class PoisController {
       extnames: ['jpg'],
     });
     const id = params.id;
+    let ObjectToStore: PoiToStore = {};
     try {
       const poi = await Poi.findOrFail(id);
-      await Drive.delete(`images/${poi.image_name}`);
-      const today = Date.now();
-      coverImage.clientName = `${today}_${coverImage.clientName}`;
-      await coverImage.move(`${Env.get('URL_IMAGE')}`);
-      const url = `${Env.get('BASE_URL')}images/${coverImage.fileName}`;
-      const ObjectToStore: PoiToStore = {
-        area: data.area,
-        exhibition_number: data.exhibition_number,
-        title: data.title,
-        manufacturer: data.manufacturer,
-        periode: data.periode,
-        archived: data.archived,
-        image_url: url,
-        image_name: coverImage.clientName,
-        location: data.location,
-      };
+      if (coverImage) {
+        await Drive.delete(`images/${poi.image_name}`);
+        const today = Date.now();
+        coverImage.clientName = `${today}_${coverImage.clientName}`;
+        await coverImage.move(`${Env.get('URL_IMAGE')}`);
+        const url = `${Env.get('BASE_URL')}images/${coverImage.fileName}`;
+        ObjectToStore.image_url = url;
+        ObjectToStore.image_name = coverImage.clientName;
+      } else {
+        ObjectToStore.area = data.area ?? poi.area;
+        ObjectToStore.title = data.title ?? poi.title;
+        ObjectToStore.exhibition_number = data.exhibition_number ?? poi.exhibition_number;
+        ObjectToStore.manufacturer = data.manufacturer ?? poi.manufacturer;
+        ObjectToStore.periode = data.periode ?? poi.periode;
+        ObjectToStore.archived = data.archived ?? poi.archived;
+        ObjectToStore.location = data.location ?? poi.location;
+      }
       poi.merge(ObjectToStore);
       await poi.save();
       return poi;
