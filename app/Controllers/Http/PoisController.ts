@@ -11,7 +11,6 @@ import fetch from 'cross-fetch';
 import PoiUpdateValidator from 'App/Validators/PoiUpdateValidator';
 import { PoiToStore } from '../../../types/SharpObjects';
 import Drive from '@ioc:Adonis/Core/Drive';
-import PoiValidatorForUpdate from 'App/Validators/PoiValidatorForUpdate';
 
 const MIN_PROBABILITY = 0.75;
 
@@ -106,7 +105,7 @@ export default class PoisController {
    * @returns The updated POI
    */
   public async update({ params, request, response }) {
-    const data = await request.validate(PoiValidatorForUpdate);
+    const data = await request.validate(PoiUpdateValidator);
     const coverImage = request.file('image', {
       extnames: ['jpg'],
     });
