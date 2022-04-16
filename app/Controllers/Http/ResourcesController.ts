@@ -3,6 +3,7 @@ import ResourceValidator from 'App/Validators/ResourceValidator';
 import ResourceUpdateValidator from 'App/Validators/ResourceUpdateValidator';
 import Env from '@ioc:Adonis/Core/Env';
 import Drive from '@ioc:Adonis/Core/Drive';
+import { ResourceToStore } from '../../../types/SharpObjects';
 
 export default class ResourcesController {
   /**
@@ -41,33 +42,33 @@ export default class ResourcesController {
   public async store({ request, response }) {
     try {
       const data = await request.validate(ResourceValidator);
-      const coverImage = request.file('image', {
-        extnames: ['jpg'],
+      const audio = request.file('audio', {
+        extnames: ['mp3'],
       });
-      if (!coverImage) {
+      if (!audio) {
         return response.badRequest({
           type: 'error',
-          content: 'no image with the key "image" sent',
+          content: 'no audio with the key "audio" sent',
         });
       }
-      if (!coverImage.isValid) {
+      if (!audio.isValid) {
         return response.badRequest({
           type: 'error',
-          content: coverImage.errors,
+          content: audio.errors,
         });
       }
 
       const today = Date.now();
-      coverImage.clientName = `${today}_${coverImage.clientName}`;
-      await coverImage.move(`${Env.get('URL_IMAGE')}`);
-      const url = `${Env.get('BASE_URL')}images/${coverImage.fileName}`;
-      const ObjectToStore = {
+      audio.clientName = `${today}_${audio.clientName}`;
+      await audio.move(`${Env.get('URL_AUDIO')}`);
+      const url = `${Env.get('BASE_URL')}audios/${audio.fileName}`;
+      const AudioToStore: ResourceToStore = {
         url: url,
-        name: coverImage.clientName,
+        name: audio.clientName,
         id_poi: data.id_poi,
         id_lang: data.id_lang,
       };
-      const resource = await Resource.create(ObjectToStore);
+      const resource = await Resource.create(AudioToStore);
       return resource;
     } catch (error) {
       return response.internalServerError({
@@ -84,23 +85,25 @@ export default class ResourcesController {
    */
   public async update({ params, request, response }) {
     const data = await request.validate(ResourceUpdateValidator);
-    const coverImage = request.file('image', {
-      extnames: ['jpg'],
+    const audio = request.file('audio', {
+      extnames: ['mp3'],
     });
     const id = params.id;
+    let ObjectToStore: ResourceToStore = {};
     try {
       const resource = await Resource.findOrFail(id);
-      await Drive.delete(`images/${resource.name}`);
-      const today = Date.now();
-      coverImage.clientName = `${today}_${coverImage.clientName}`;
-      await coverImage.move(`${Env.get('URL_IMAGE')}`);
-      const url = `${Env.get('BASE_URL')}images/${coverImage.fileName}`;
-      const ObjectToStore = {
-        url: url,
-        name: coverImage.clientName,
-        id_poi: data.id_poi,
-        id_lang: data.id_lang,
-      };
+      if (audio) {
+        await Drive.delete(`audios/${resource.name}`);
+        const today = Date.now();
+        audio.clientName = `${today}_${audio.clientName}`;
+        await audio.move(`${Env.get('URL_AUDIO')}`);
+        const url = `${Env.get('BASE_URL')}audios/${audio.fileName}`;
+        ObjectToStore.url = url;
+        ObjectToStore.name = audio.clientName;
+      } else {
+        ObjectToStore.id_poi = data.id_poi ?? resource.id_poi;
+        ObjectToStore.id_lang = data.id_lang ?? resource.id_lang;
+      }
       resource.merge(ObjectToStore);
       await resource.save();
       return resource;
@@ -120,13 +123,13 @@ export default class ResourcesController {
   public async destroy({ params, response }) {
     try {
       const resource = await Resource.findOrFail(params.id);
-      if (!(await Drive.exists(`images/${resource.name}`))) {
+      if (!(await Drive.exists(`audios/${resource.name}`))) {
         return response.badRequest({
           type: 'error',
           content: "Image doesn't exist",
         });
       }
-      await Drive.delete(`images/${resource.name}`);
+      await Drive.delete(`audios/${resource.name}`);
       await resource.delete();
       return response.ok({
         type: 'sucess',

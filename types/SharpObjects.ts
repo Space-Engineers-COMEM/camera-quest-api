@@ -33,4 +33,11 @@ type PoiToStore = {
   location?: string;
 };
 
-export { Response, ResponseAll, PoiPreview, PoiToStore };
+type ResourceToStore = {
+  url?: string;
+  name?: string;
+  id_poi?: number;
+  id_lang?: number;
+};
+
+export { Response, ResponseAll, PoiPreview, PoiToStore, ResourceToStore };

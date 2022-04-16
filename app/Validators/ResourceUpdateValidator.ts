@@ -5,9 +5,11 @@ export default class ResourceUpdateValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    image: schema.file(),
-    id_poi: schema.number([rules.exists({ table: 'pois', column: 'id' })]),
-    id_lang: schema.number([rules.exists({ table: 'languages', column: 'id' })]),
+    audio: schema.file.optional({
+      extnames: ['mp3'],
+    }),
+    id_poi: schema.number.optional([rules.exists({ table: 'pois', column: 'id' })]),
+    id_lang: schema.number.optional([rules.exists({ table: 'languages', column: 'id' })]),
   });
 
   public messages = {};
