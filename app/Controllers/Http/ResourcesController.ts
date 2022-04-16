@@ -2,7 +2,6 @@ import Resource from 'App/Models/Resource';
 import ResourceValidator from 'App/Validators/ResourceValidator';
 import ResourceUpdateValidator from 'App/Validators/ResourceUpdateValidator';
 import Env from '@ioc:Adonis/Core/Env';
-import { ImageToStore } from '../../../types/SharpObjects';
 import Drive from '@ioc:Adonis/Core/Drive';
 
 export default class ResourcesController {
@@ -38,7 +37,7 @@ export default class ResourcesController {
     }
   }
 
-  //not forget to comment
+  // //not forget to comment
   public async store({ request, response }) {
     try {
       const data = await request.validate(ResourceValidator);
@@ -62,7 +61,7 @@ export default class ResourcesController {
       coverImage.clientName = `${today}_${coverImage.clientName}`;
       await coverImage.move(`${Env.get('URL_IMAGE')}`);
       const url = `${Env.get('BASE_URL')}images/${coverImage.fileName}`;
-      const ObjectToStore: ImageToStore = {
+      const ObjectToStore = {
         url: url,
         name: coverImage.clientName,
         id_poi: data.id_poi,
@@ -96,7 +95,7 @@ export default class ResourcesController {
       coverImage.clientName = `${today}_${coverImage.clientName}`;
       await coverImage.move(`${Env.get('URL_IMAGE')}`);
       const url = `${Env.get('BASE_URL')}images/${coverImage.fileName}`;
-      const ObjectToStore: ImageToStore = {
+      const ObjectToStore = {
         url: url,
         name: coverImage.clientName,
         id_poi: data.id_poi,

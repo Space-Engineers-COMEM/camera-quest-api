@@ -1,7 +1,7 @@
 import { schema, rules } from '@ioc:Adonis/Core/Validator';
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 
-export default class PoiValidator {
+export default class PoiValidatorForUpdate {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
@@ -9,13 +9,13 @@ export default class PoiValidator {
       extnames: ['jpg'],
     }),
     exhibition_number: schema.number([
-      rules.unique({ table: 'pois', column: 'exhibition_number' }),
+      rules.exists({ table: 'pois', column: 'exhibition_number' }),
     ]),
     title: schema.string({ escape: true, trim: true }, [
-      rules.unique({ table: 'pois', column: 'title' }),
+      rules.exists({ table: 'pois', column: 'title' }),
     ]),
     manufacturer: schema.string({ escape: true, trim: true }),
-    periode: schema.string({ escape: true, trim: true }, [rules.minLength(4)]),
+    periode: schema.string({ escape: true, trim: true }),
     archived: schema.boolean(),
     area: schema.number(),
     location: schema.string({ escape: true, trim: true }),
