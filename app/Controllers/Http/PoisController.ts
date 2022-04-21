@@ -235,6 +235,7 @@ export default class PoisController {
     const predictionResponse = await this.callPredictionApi(file);
 
     console.log('5');
+    console.log(predictionResponse);
 
     // Check if the prediction was successful
     if (predictionResponse.predictions[0].probability < MIN_PROBABILITY) {
