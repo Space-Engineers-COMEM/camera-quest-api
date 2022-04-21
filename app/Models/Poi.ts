@@ -29,6 +29,9 @@ export default class Poi extends BaseModel {
   public image_url: string;
 
   @column()
+  public image_name: string;
+
+  @column()
   public location: string;
 
   @hasMany(() => Resource, {

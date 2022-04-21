@@ -6,10 +6,11 @@ import TagPoi from 'App/Models/TagPoi';
 import PoiValidator from 'App/Validators/PoiValidator';
 import { PoiPreview, Response } from '../../../types/SharpObjects';
 import Database from '@ioc:Adonis/Lucid/Database';
-import Drive from '@ioc:Adonis/Core/Drive';
 import Env from '@ioc:Adonis/Core/Env';
 import fetch from 'cross-fetch';
 import PoiUpdateValidator from 'App/Validators/PoiUpdateValidator';
+import { PoiToStore } from '../../../types/SharpObjects';
+import Drive from '@ioc:Adonis/Core/Drive';
 
 const MIN_PROBABILITY = 0.75;
 
@@ -56,7 +57,38 @@ export default class PoisController {
   public async store({ request, response }) {
     try {
       const data = await request.validate(PoiValidator);
-      const poi = await Poi.create(data);
+      const coverImage = request.file('image', {
+        extnames: ['jpg'],
+      });
+      if (!coverImage) {
+        return response.badRequest({
+          type: 'error',
+          content: 'no image with the key "image" sent',
+        });
+      }
+      if (!coverImage.isValid) {
+        return response.badRequest({
+          type: 'error',
+          content: coverImage.errors,
+        });
+      }
+
+      const today = Date.now();
+      coverImage.clientName = `${today}_${coverImage.clientName}`;
+      await coverImage.move(`${Env.get('URL_IMAGE')}`);
+      const url = `${Env.get('BASE_URL')}images/${coverImage.fileName}`;
+      const ObjectToStore: PoiToStore = {
+        area: data.area,
+        exhibition_number: data.exhibition_number,
+        title: data.title,
+        manufacturer: data.manufacturer,
+        periode: data.periode,
+        archived: data.archived,
+        image_url: url,
+        image_name: coverImage.clientName,
+        location: data.location,
+      };
+      const poi = await Poi.create(ObjectToStore);
       return poi;
     } catch (error) {
       return response.badRequest({
@@ -74,10 +106,31 @@ export default class PoisController {
    */
   public async update({ params, request, response }) {
     const data = await request.validate(PoiUpdateValidator);
+    const coverImage = request.file('image', {
+      extnames: ['jpg'],
+    });
     const id = params.id;
+    let ObjectToStore: PoiToStore = {};
     try {
       const poi = await Poi.findOrFail(id);
-      poi.merge(data);
+      if (coverImage) {
+        await Drive.delete(`images/${poi.image_name}`);
+        const today = Date.now();
+        coverImage.clientName = `${today}_${coverImage.clientName}`;
+        await coverImage.move(`${Env.get('URL_IMAGE')}`);
+        const url = `${Env.get('BASE_URL')}images/${coverImage.fileName}`;
+        ObjectToStore.image_url = url;
+        ObjectToStore.image_name = coverImage.clientName;
+      } else {
+        ObjectToStore.area = data.area ?? poi.area;
+        ObjectToStore.title = data.title ?? poi.title;
+        ObjectToStore.exhibition_number = data.exhibition_number ?? poi.exhibition_number;
+        ObjectToStore.manufacturer = data.manufacturer ?? poi.manufacturer;
+        ObjectToStore.periode = data.periode ?? poi.periode;
+        ObjectToStore.archived = data.archived ?? poi.archived;
+        ObjectToStore.location = data.location ?? poi.location;
+      }
+      poi.merge(ObjectToStore);
       await poi.save();
       return poi;
     } catch (error) {
@@ -96,7 +149,18 @@ export default class PoisController {
   public async destroy({ params, response }) {
     try {
       const poi = await Poi.findOrFail(params.id);
-      return await poi.delete();
+      if (!(await Drive.exists(`images/${poi.image_name}`))) {
+        return response.badRequest({
+          type: 'error',
+          content: "Image doesn't exist",
+        });
+      }
+      await Drive.delete(`images/${poi.image_name}`);
+      await poi.delete();
+      return response.ok({
+        type: 'sucess',
+        content: 'resource deleted',
+      });
     } catch (error) {
       return response.badRequest({
         type: 'error',

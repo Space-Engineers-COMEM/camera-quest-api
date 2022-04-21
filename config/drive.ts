@@ -7,7 +7,7 @@
 
 import Env from '@ioc:Adonis/Core/Env';
 import { DriveConfig } from '@ioc:Adonis/Core/Drive';
-import Application from '@ioc:Adonis/Core/Application';
+// import Application from '@ioc:Adonis/Core/Application';
 
 /*
 |--------------------------------------------------------------------------
@@ -53,7 +53,7 @@ const driveConfig: DriveConfig = {
       | files.
       |
       */
-      root: Application.tmpPath('uploads'),
+      root: Env.get('URL_DRIVE'),
 
       /*
       |--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ const driveConfig: DriveConfig = {
       | storage services that has inbuilt capabilities to serve files.
       |
       */
-      serveFiles: true,
+      serveFiles: false,
 
       /*
       |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ const driveConfig: DriveConfig = {
       | you are not registering routes with this prefix.
       |
       */
-      basePath: '/uploads',
+      // basePath: '/uploads',
     },
 
     /*

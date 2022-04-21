@@ -1,7 +1,9 @@
-// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Resource from 'App/Models/Resource';
 import ResourceValidator from 'App/Validators/ResourceValidator';
 import ResourceUpdateValidator from 'App/Validators/ResourceUpdateValidator';
+import Env from '@ioc:Adonis/Core/Env';
+import Drive from '@ioc:Adonis/Core/Drive';
+import { ResourceToStore } from '../../../types/SharpObjects';
 
 export default class ResourcesController {
   /**
@@ -36,21 +38,42 @@ export default class ResourcesController {
     }
   }
 
-  /**
-   * It validates the request data using the ResourceValidator, then creates a new resource using the
-   * validated data
-   * @param  - request - The request object.
-   * @returns The resource that was created.
-   */
+  // //not forget to comment
   public async store({ request, response }) {
     try {
       const data = await request.validate(ResourceValidator);
-      const resource = await Resource.create(data);
+      const audio = request.file('audio', {
+        extnames: ['mp3'],
+      });
+      if (!audio) {
+        return response.badRequest({
+          type: 'error',
+          content: 'no audio with the key "audio" sent',
+        });
+      }
+      if (!audio.isValid) {
+        return response.badRequest({
+          type: 'error',
+          content: audio.errors,
+        });
+      }
+
+      const today = Date.now();
+      audio.clientName = `${today}_${audio.clientName}`;
+      await audio.move(`${Env.get('URL_AUDIO')}`);
+      const url = `${Env.get('BASE_URL')}audios/${audio.fileName}`;
+      const AudioToStore: ResourceToStore = {
+        url: url,
+        name: audio.clientName,
+        id_poi: data.id_poi,
+        id_lang: data.id_lang,
+      };
+      const resource = await Resource.create(AudioToStore);
       return resource;
     } catch (error) {
-      return response.badRequest({
+      return response.internalServerError({
         type: 'error',
-        content: error.messages,
+        content: error.message,
       });
     }
   }
@@ -62,10 +85,26 @@ export default class ResourcesController {
    */
   public async update({ params, request, response }) {
     const data = await request.validate(ResourceUpdateValidator);
+    const audio = request.file('audio', {
+      extnames: ['mp3'],
+    });
     const id = params.id;
+    let ObjectToStore: ResourceToStore = {};
     try {
       const resource = await Resource.findOrFail(id);
-      resource.merge(data);
+      if (audio) {
+        await Drive.delete(`audios/${resource.name}`);
+        const today = Date.now();
+        audio.clientName = `${today}_${audio.clientName}`;
+        await audio.move(`${Env.get('URL_AUDIO')}`);
+        const url = `${Env.get('BASE_URL')}audios/${audio.fileName}`;
+        ObjectToStore.url = url;
+        ObjectToStore.name = audio.clientName;
+      } else {
+        ObjectToStore.id_poi = data.id_poi ?? resource.id_poi;
+        ObjectToStore.id_lang = data.id_lang ?? resource.id_lang;
+      }
+      resource.merge(ObjectToStore);
       await resource.save();
       return resource;
     } catch (error) {
@@ -84,7 +123,18 @@ export default class ResourcesController {
   public async destroy({ params, response }) {
     try {
       const resource = await Resource.findOrFail(params.id);
-      return await resource.delete();
+      if (!(await Drive.exists(`audios/${resource.name}`))) {
+        return response.badRequest({
+          type: 'error',
+          content: "Image doesn't exist",
+        });
+      }
+      await Drive.delete(`audios/${resource.name}`);
+      await resource.delete();
+      return response.ok({
+        type: 'sucess',
+        content: 'resource deleted',
+      });
     } catch (error) {
       return response.badRequest({
         type: 'error',

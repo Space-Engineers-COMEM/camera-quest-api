@@ -5,6 +5,9 @@ export default class PoiValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
+    image: schema.file({
+      extnames: ['jpg'],
+    }),
     exhibition_number: schema.number([
       rules.unique({ table: 'pois', column: 'exhibition_number' }),
     ]),
@@ -15,7 +18,6 @@ export default class PoiValidator {
     periode: schema.string({ escape: true, trim: true }, [rules.minLength(4)]),
     archived: schema.boolean(),
     area: schema.number(),
-    image_url: schema.string({ escape: true, trim: true }, [rules.url()]),
     location: schema.string({ escape: true, trim: true }),
   });
 

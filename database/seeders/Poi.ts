@@ -12,6 +12,7 @@ export default class PoisSeeder extends BaseSeeder {
         periode: '2015',
         archived: false,
         image_url: 'https://via.placeholder.com/150',
+        image_name: 'test',
         location: 'Allemagne',
       },
       {
@@ -22,6 +23,7 @@ export default class PoisSeeder extends BaseSeeder {
         periode: '2015',
         archived: false,
         image_url: 'https://via.placeholder.com/150',
+        image_name: 'test2',
         location: 'Suisse',
       },
     ]);

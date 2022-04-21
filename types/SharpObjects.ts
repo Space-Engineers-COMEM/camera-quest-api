@@ -3,12 +3,6 @@ import TranslationModel from 'App/Models/Translation';
 import Resource from 'App/Models/Resource';
 import Tag from 'App/Models/Tag';
 
-type RootInfo = {
-  message: string;
-  admin_link: string;
-  pois_link: string;
-};
-
 type Response = {
   poi: Poi;
   translations: TranslationModel[];
@@ -27,4 +21,23 @@ type PoiPreview = {
   imagePath: string;
 };
 
-export { RootInfo, Response, ResponseAll, PoiPreview };
+type PoiToStore = {
+  area?: number;
+  exhibition_number?: number;
+  title?: string;
+  manufacturer?: string;
+  periode?: string;
+  archived?: boolean;
+  image_url?: string;
+  image_name?: string;
+  location?: string;
+};
+
+type ResourceToStore = {
+  url?: string;
+  name?: string;
+  id_poi?: number;
+  id_lang?: number;
+};
+
+export { Response, ResponseAll, PoiPreview, PoiToStore, ResourceToStore };

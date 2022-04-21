@@ -6,22 +6,8 @@ export default class ResourceSeeder extends BaseSeeder {
     await Resource.createMany([
       {
         url: 'https.//testaudio.com',
+        name: 'test',
         id_poi: 1,
-        id_lang: 1,
-      },
-      {
-        url: 'http://localhost:3333/images/image.JPG',
-        id_poi: 1,
-        id_lang: 1,
-      },
-      {
-        url: 'https.//test2audio.com',
-        id_poi: 2,
-        id_lang: 1,
-      },
-      {
-        url: 'https.//test2photo.com',
-        id_poi: 2,
         id_lang: 1,
       },
     ]);
