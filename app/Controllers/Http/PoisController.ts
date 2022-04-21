@@ -209,42 +209,29 @@ export default class PoisController {
       extnames: ['jpg', 'png', 'gif', 'bmp', 'jpeg'],
     });
 
-    console.log('1');
-
     // Check if the file is present
     if (!image) {
       return response.badRequest({ type: 'error', content: 'No image provided' });
     }
-
-    console.log('2');
 
     // Check if the file is valid
     if (!image.isValid) {
       return response.badRequest({ type: 'error', content: image.errors[0].message });
     }
 
-    console.log('3');
-
     // Get the file from the server
     const file = await Drive.get(image.tmpPath);
-
-    console.log('4');
 
     // Get the prediction
     const predictionResponse = await this.callPredictionApi(file);
 
-    console.log('5');
-    console.log(predictionResponse);
-
     // Check if the prediction was successful
     if (predictionResponse.predictions[0].probability < MIN_PROBABILITY) {
-      console.log('6');
       return response.ok({
         type: 'unpredictable',
         content: "Couldn't predict the image",
       });
     } else {
-      console.log('7');
       // Return the POI from the prediction and all its data
       const exhibitionNumber = predictionResponse.predictions[0].tagName.split('_')[0];
       const poi = await Poi.findByOrFail('exhibition_number', exhibitionNumber);
