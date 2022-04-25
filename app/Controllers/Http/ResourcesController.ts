@@ -100,10 +100,9 @@ export default class ResourcesController {
         const url = `${Env.get('BASE_URL')}audios/${audio.fileName}`;
         ObjectToStore.url = url;
         ObjectToStore.name = audio.clientName;
-      } else {
-        ObjectToStore.id_poi = data.id_poi ?? resource.id_poi;
-        ObjectToStore.id_lang = data.id_lang ?? resource.id_lang;
       }
+      ObjectToStore.id_poi = data.id_poi ?? resource.id_poi;
+      ObjectToStore.id_lang = data.id_lang ?? resource.id_lang;
       resource.merge(ObjectToStore);
       await resource.save();
       return resource;

@@ -7,7 +7,7 @@ export default class Translations extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id');
       table.enu('key', ['subtitle', 'description']).notNullable();
-      table.string('value').notNullable();
+      table.text('value').notNullable();
       table.integer('id_poi').unsigned().notNullable().references('pois.id').onDelete('CASCADE');
       table
         .integer('id_lang')

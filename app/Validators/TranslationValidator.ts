@@ -19,7 +19,7 @@ export default class TranslationValidator {
       ]
     ),
 
-    value: schema.string({}, []),
+    value: schema.string(),
     id_poi: schema.number([rules.exists({ table: 'pois', column: 'id' })]),
     id_lang: schema.number([rules.exists({ table: 'languages', column: 'id' })]),
   });
