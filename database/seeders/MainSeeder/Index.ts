@@ -12,6 +12,7 @@ export default class IndexSeeder extends BaseSeeder {
 
   public async run() {
     await this.runSeeder(await import('../User'));
+    await this.runSeeder(await import('../Floor'));
     await this.runSeeder(await import('../Poi'));
     await this.runSeeder(await import('../Language'));
     await this.runSeeder(await import('../Translation'));
