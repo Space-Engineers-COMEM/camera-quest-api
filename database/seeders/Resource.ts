@@ -5,8 +5,8 @@ export default class ResourceSeeder extends BaseSeeder {
   public async run() {
     await Resource.createMany([
       {
-        url: 'https.//testaudio.com',
-        name: 'test',
+        url: 'https://api.cameramuseum.app/audios/Megaletoscope_final.mp3',
+        name: 'Megaletoscope_final.mp3',
         id_poi: 1,
         id_lang: 1,
       },
