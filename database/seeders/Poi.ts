@@ -15,6 +15,28 @@ export default class PoisSeeder extends BaseSeeder {
         image_name: '124_megaletoscope.jpg',
         location: 'Italie',
       },
+      {
+        area: 1,
+        exhibition_number: 108,
+        title: 'Opticiens Parisiens',
+        manufacturer: 'Famille Chevalier',
+        periode: '~1800',
+        archived: false,
+        image_url: 'https://api.cameramuseum.app/images/108_opticiensParisiensChevalier.jpg',
+        image_name: '108_opticiensParisiensChevalier.jpg',
+        location: 'Paris',
+      },
+      {
+        area: 1,
+        exhibition_number: 199,
+        title: 'Prise de vue en extérieur au temps du Collodion',
+        manufacturer: 'Roger Fenton',
+        periode: '~1850',
+        archived: false,
+        image_url: 'https://api.cameramuseum.app/images/199_collodion.jpg',
+        image_name: '199_collodion.jpg',
+        location: 'Londres',
+      },
     ]);
   }
 }
