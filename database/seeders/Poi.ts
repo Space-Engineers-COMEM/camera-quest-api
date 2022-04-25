@@ -7,7 +7,7 @@ export default class PoisSeeder extends BaseSeeder {
       {
         area: 1,
         exhibition_number: 124,
-        title: 'Le Mégaletoscope',
+        title: 'Mégaletoscope',
         manufacturer: 'Carlo Ponti',
         periode: '1862',
         archived: false,
