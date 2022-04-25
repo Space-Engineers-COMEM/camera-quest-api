@@ -121,15 +121,14 @@ export default class PoisController {
         const url = `${Env.get('BASE_URL')}images/${coverImage.fileName}`;
         ObjectToStore.image_url = url;
         ObjectToStore.image_name = coverImage.clientName;
-      } else {
-        ObjectToStore.area = data.area ?? poi.area;
-        ObjectToStore.title = data.title ?? poi.title;
-        ObjectToStore.exhibition_number = data.exhibition_number ?? poi.exhibition_number;
-        ObjectToStore.manufacturer = data.manufacturer ?? poi.manufacturer;
-        ObjectToStore.periode = data.periode ?? poi.periode;
-        ObjectToStore.archived = data.archived ?? poi.archived;
-        ObjectToStore.location = data.location ?? poi.location;
       }
+      ObjectToStore.area = data.area ?? poi.area;
+      ObjectToStore.title = data.title ?? poi.title;
+      ObjectToStore.exhibition_number = data.exhibition_number ?? poi.exhibition_number;
+      ObjectToStore.manufacturer = data.manufacturer ?? poi.manufacturer;
+      ObjectToStore.periode = data.periode ?? poi.periode;
+      ObjectToStore.archived = data.archived ?? poi.archived;
+      ObjectToStore.location = data.location ?? poi.location;
       poi.merge(ObjectToStore);
       await poi.save();
       return poi;
