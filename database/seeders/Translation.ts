@@ -14,7 +14,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'Le mégaletoscope est une version agrandie d’un appareil déjà existant à l’époque: l’aletoscope. C’était une visionneuse pour images photographiques de grand format. Le mégaletoscope disposait d’un filtre à effet jour et un filtre à effet nuit tout en permettant de regarder des images fortement agrandies. Il est accompagné d’une vingtaine de planches d’environ 30x40cm disposant de divers effets.',
+          'Le mégaletoscope est une version agrandie d’un appareil déjà existant à l’époque: l’aletoscope. C’était une visionneuse pour images photographiques de grand format. <br><br>Le mégaletoscope disposait d’un filtre à effet jour et un filtre à effet nuit tout en permettant de regarder des images fortement agrandies. Il est accompagné d’une vingtaine de planches d’environ 30x40cm disposant de divers effets.',
         id_poi: 1,
         id_lang: 1,
       },
@@ -28,7 +28,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'Célèbres opticiens de Paris, la famille Chevalier disposait d’une boutique contenant différentes versions de la fameuse Camera Obscura. D’ailleurs Louis-Jacques-Mandé Daguerre, fervent utilisateur de cet appareil dans le cadre de son métier de peintre ainsi que de décorateur de théâtre, faisait parti de leur clientèle. Le Colonel Niépce finira aussi dans cette boutique à propos des travaux de ses parents. Tous ensemble, ils contribuèrent à un traité concernant l’annonce officielle de la découverte de la photographie en 1839.',
+          'Célèbres opticiens de Paris, la famille Chevalier disposait d’une boutique contenant différentes versions de la fameuse Camera Obscura. <br><br>D’ailleurs Louis-Jacques-Mandé Daguerre, fervent utilisateur de cet appareil dans le cadre de son métier de peintre ainsi que de décorateur de théâtre, faisait parti de leur clientèle. <br><br>Le Colonel Niépce finira aussi dans cette boutique à propos des travaux de ses parents. Tous ensemble, ils contribuèrent à un traité concernant l’annonce officielle de la découverte de la photographie en 1839.',
         id_poi: 2,
         id_lang: 1,
       },
@@ -42,7 +42,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'La qualité de l’image ayant subi une progression fulgurante, les photographes se sont rapidement tourné vers les prises de vue extérieure. Celles-ci proposaient un nouveau challenge de taille: emporter tout le matériel du laboratoire. En effet, la plaque de verre devait être traitée au moment de la prise de vue et le collodion devait rester humide. L’entièreté de leur matériel était donc nécessaire. Avec cette technologie, on se rapproche gentiment des clichés instantanés.',
+          'La qualité de l’image ayant subi une progression fulgurante, les photographes se sont rapidement tourné vers les prises de vue extérieure. <br><br>Celles-ci proposaient un nouveau challenge de taille: emporter tout le matériel du laboratoire. En effet, la plaque de verre devait être traitée au moment de la prise de vue et le collodion devait rester humide. <br><br>L’entièreté de leur matériel était donc nécessaire. Avec cette technologie, on se rapproche gentiment des clichés instantanés.',
         id_poi: 3,
         id_lang: 1,
       },
@@ -56,7 +56,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'Deux chambres qui se superposent pour permettre au photographe la possibilité d’utiliser la première pour la visée et la deuxième pour la prise de vue. C’est une solution astucieuse qui a été mise en place pour pouvoir se séparer du trépied tout en gardant la possibilité d’effectuer un bon cadrage. Elle a été suivie par l’utilisation des miroirs pour dévier l’image et permettre au photographe d’avoir un aperçu de celle-ci.',
+          'Deux chambres qui se superposent pour permettre au photographe la possibilité d’utiliser la première pour la visée et la deuxième pour la prise de vue. <br><br>C’est une solution astucieuse qui a été mise en place pour pouvoir se séparer du trépied tout en gardant la possibilité d’effectuer un bon cadrage. <br><br>Elle a été suivie par l’utilisation des miroirs pour dévier l’image et permettre au photographe d’avoir un aperçu de celle-ci.',
         id_poi: 4,
         id_lang: 1,
       },
@@ -70,7 +70,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'Cette chaise fait partie de la méthode d’identification des criminels récidivistes mise en place par Alphonse Bertillon. Cette méthode consiste à effectuer une analyse biométrique accompagnée de photographies de face et de profil prises sous un éclairage stricte, tout en étant à une distance spécifique de la chaise. Elle s’est répandue ensuite un peu partout dans le monde et a servi à résoudre un bon nombre d’affaires judiciaires.',
+          'Cette chaise fait partie de la méthode d’identification des criminels récidivistes mise en place par Alphonse Bertillon. <br><br>Cette méthode consiste à effectuer une analyse biométrique accompagnée de photographies de face et de profil prises sous un éclairage stricte, tout en étant à une distance spécifique de la chaise. <br><br>Elle s’est répandue ensuite un peu partout dans le monde et a servi à résoudre un bon nombre d’affaires judiciaires.',
         id_poi: 5,
         id_lang: 1,
       },
@@ -84,7 +84,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'Le portrait-carte de visite a vu le jour en 1854 grâce aux travaux de Eugène Adolphe Disdéri. C’est un photographe Français ayant utilisé la technique du collodion humide pour inventer un nouvel appareil photographique multi-objectifs. Celui-ci permet la réalisation de plusieurs poses en utilisant la même plaque. L’un des secrets de la réussite de ce concept est l’importance consacré à la mise en scène lors de la prise de photo pour mettre en valeur le statut du modèle.',
+          'Le portrait-carte de visite a vu le jour en 1854 grâce aux travaux de Eugène Adolphe Disdéri. C’est un photographe Français ayant utilisé la technique du collodion humide pour inventer un nouvel appareil photographique multi-objectifs. <br><br>Celui-ci permet la réalisation de plusieurs poses en utilisant la même plaque. L’un des secrets de la réussite de ce concept est l’importance consacré à la mise en scène lors de la prise de photo pour mettre en valeur le statut du modèle.',
         id_poi: 6,
         id_lang: 1,
       },
@@ -98,7 +98,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'Le plan-film se présente sous une forme différente du film original. Au lieu d’être sous forme roulée, il est sous forme de feuille de celluloïd individuelle. Ces feuilles peuvent soit se trouver dans un châssis ayant une contenance de 2 plan-films soit être dans un chargeur d’une contenance plus élevée. Ce chargeur est le filmpack. L’avantage est que sous ce format, ils avaient un substitut plus léger que les plaques de verre plus lourdes et plus fragiles.',
+          'Le plan-film se présente sous une forme différente du film original. Au lieu d’être sous forme roulée, il est sous forme de feuille de celluloïd individuelle. <br><br>Ces feuilles peuvent soit se trouver dans un châssis ayant une contenance de 2 plan-films soit être dans un chargeur d’une contenance plus élevée. Ce chargeur est le filmpack. <br><br>L’avantage est que sous ce format, ils avaient un substitut plus léger que les plaques de verre plus lourdes et plus fragiles.',
         id_poi: 7,
         id_lang: 1,
       },
@@ -111,7 +111,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'Les photographies aériennes ont longtemps été un challenge. Les premières ont été faîtes lors d’un vol en ballon par Nadar en 1858. Quelques dizaines d’années plus tard, une autre idée plutôt particulière a été mise en pratique. Un appareil photo spécial pouvant être porté par des pigeons. A l’origine utilisé pour contrôler le trajet effectué par les voyageurs devant délivrer des messages. Julius Neubronner élabore un second appareil : le Doppel-Sport. Une impressionnante conception pouvant prendre des photos panoramiques incurvées de 3x8cm. Tout ça grâce à un objectif tournant composé également d’un déclencheur à retardement',
+          'Les photographies aériennes ont longtemps été un challenge. Les premières ont été faîtes lors d’un vol en ballon par Nadar en 1858. <br><br>Quelques dizaines d’années plus tard, une autre idée plutôt particulière a été mise en pratique. Un appareil photo spécial pouvant être porté par des pigeons. <br><br>A l’origine utilisé pour contrôler le trajet effectué par les voyageurs devant délivrer des messages. Julius Neubronner élabore un second appareil : le Doppel-Sport. Une impressionnante conception pouvant prendre des photos panoramiques incurvées de 3x8cm. Tout ça grâce à un objectif tournant composé également d’un déclencheur à retardement',
         id_poi: 8,
         id_lang: 1,
       },
@@ -124,7 +124,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'Durant toutes ces années, l’appareil photo n’a eu de cesse de s’améliorer et de révolutionner son utilisation. La plus marquante est celle liée aux téléphones portables. La photographie est maintenant dans un nouveau cap: la culture de l’instant en privilégiant le temps court de la communication, promouvoir l’instantané. Maintenant encore plus particulièrement grâce aux smartphones, ce marché a presque réduit à néant le marché de l’appareil photo numérique.',
+          'Durant toutes ces années, l’appareil photo n’a eu de cesse de s’améliorer et de révolutionner son utilisation. <br><br>La plus marquante est celle liée aux téléphones portables. La photographie est maintenant dans un nouveau cap: la culture de l’instant en privilégiant le temps court de la communication, promouvoir l’instantané. <br><br>Maintenant encore plus particulièrement grâce aux smartphones, ce marché a presque réduit à néant le marché de l’appareil photo numérique.',
         id_poi: 9,
         id_lang: 1,
       },
@@ -138,7 +138,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'Cet objet s’appelle un “Wafer” ce qui signifie “Gaufrette” en anglais. Il contient 3 capteurs (les 3 carrés), autour sont diposés des circuits. Le tout sera ensuite découpés pour être installé dans un instrument photographique. Le carré du centre fait 61,4mm et contient 4096 lignes comptant chacune 4096 photorécepteurs d’une taille de 15 microns. Les deux autres carrés font 30,72mm et donc disposent d’une capacité 2048x2048 photorécepteurs.',
+          'Cet objet s’appelle un “Wafer” ce qui signifie “Gaufrette” en anglais. Il contient 3 capteurs (les 3 carrés), autour sont diposés des circuits. <br><br>Le tout sera ensuite découpés pour être installé dans un instrument photographique. Le carré du centre fait 61,4mm et contient 4096 lignes comptant chacune 4096 photorécepteurs d’une taille de 15 microns. Les deux autres carrés font 30,72mm et donc disposent d’une capacité 2048x2048 photorécepteurs.',
         id_poi: 10,
         id_lang: 1,
       },
@@ -155,7 +155,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'The megalethoscope is an enlarged version of a device already existing at the time: the alethoscope. It was an optical apparatus for large-format photographic images. The megalethoscope had a day effect filter and a night effect filter while allowing to view greatly enlarged images. It is accompanied by about twenty boards of about 30x40cm with various effects.',
+          'The megalethoscope is an enlarged version of a device already existing at the time: the alethoscope. It was an optical apparatus for large-format photographic images. <br><br>The megalethoscope had a day effect filter and a night effect filter while allowing to view greatly enlarged images. It is accompanied by about twenty boards of about 30x40cm with various effects.',
         id_poi: 1,
         id_lang: 2,
       },
@@ -169,7 +169,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'Famous opticians of Paris, the Chevalier family had a store containing different versions of the famous Camera Obscura. Besides, Louis-Jacques-Mandé Daguerre, fervent user of this camera in his job as a painter as well as a theater decorator, was part of their clientele. Colonel Niépce will also end up in this store because of his parent’s work. All together, they contributed to a treaty concerning the official announcement of the discovery of photography in 1839.',
+          'Famous opticians of Paris, the Chevalier family had a store containing different versions of the famous Camera Obscura. <br><br>Besides, Louis-Jacques-Mandé Daguerre, fervent user of this camera in his job as a painter as well as a theater decorator, was part of their clientele. Colonel Niépce will also end up in this store because of his parent’s work. <br><br>All together, they contributed to a treaty concerning the official announcement of the discovery of photography in 1839.',
         id_poi: 2,
         id_lang: 2,
       },
@@ -183,7 +183,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'The quality of the image having undergone a fulgurating progression, the photographers quickly turned to the outdoor shots. These offered a new challenge: to take all the laboratory equipment on the field. Indeed, the glass plate had to be processed at the time of the shooting and the collodion had to remain wet. All of their equipment was therefore necessary. With this technology, we are getting closer to instantaneous pictures.',
+          'The quality of the image having undergone a fulgurating progression, the photographers quickly turned to the outdoor shots. <br><br>These offered a new challenge: to take all the laboratory equipment on the field. Indeed, the glass plate had to be processed at the time of the shooting and the collodion had to remain wet. <br><br>All of their equipment was therefore necessary. With this technology, we are getting closer to instantaneous pictures.',
         id_poi: 3,
         id_lang: 2,
       },
@@ -197,7 +197,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'Two chambers that overlap to allow the photographer the possibility of using the first one for the aiming and the second one for the shooting. This is a clever solution that was put in place to be able to separate from the tripod while keeping the possibility to make a good framing. It was followed by the use of mirrors to deviate the image and allow the photographer to have a glimpse of it.',
+          'Two chambers that overlap to allow the photographer the possibility of using the first one for the aiming and the second one for the shooting. <br><br>This is a clever solution that was put in place to be able to separate from the tripod while keeping the possibility to make a good framing. <br><br>It was followed by the use of mirrors to deviate the image and allow the photographer to have a glimpse of it.',
         id_poi: 4,
         id_lang: 2,
       },
@@ -211,7 +211,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'This chair is part of the method of identification of recidivist criminals set up by Alphonse Bertillon. This method consists of a biometric analysis accompanied by photographs of the face and profile taken under strict lighting, while being at a specific distance from the chair. It then spread throughout the world and was used to solve a good number of judicial cases.',
+          'This chair is part of the method of identification of recidivist criminals set up by Alphonse Bertillon. <br><br>This method consists of a biometric analysis accompanied by photographs of the face and profile taken under strict lighting, while being at a specific distance from the chair. It then spread throughout the world and was used to solve a good number of judicial cases.',
         id_poi: 5,
         id_lang: 2,
       },
@@ -225,7 +225,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'The business card portrait was born in 1854 thanks to the work of Eugene Adolphe Disdéri. He is a French photographer who used the wet collodion technique to invent a new multi-objective camera. It allows the realization of several exposures using the same plate. One of the secrets of the success of this concept is the importance devoted to the staging during the shooting to highlight the status of the model.',
+          'The business card portrait was born in 1854 thanks to the work of Eugene Adolphe Disdéri. He is a French photographer who used the wet collodion technique to invent a new multi-objective camera. <br><br>It allows the realization of several exposures using the same plate. One of the secrets of the success of this concept is the importance devoted to the staging during the shooting to highlight the status of the model.',
         id_poi: 6,
         id_lang: 2,
       },
@@ -239,7 +239,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'The sheet film is in a different form to the original film. Instead of being in rolled form, it is in individual celluloid sheets. These sheets can either be in a frame with a capacity of 2 sheet films or in a magazine with a higher capacity. This magazine is the filmpack. The advantage with this format is that they had a lighter substitute for the heavier and more fragile glass sheets.',
+          'The sheet film is in a different form to the original film. Instead of being in rolled form, it is in individual celluloid sheets. <br><br>These sheets can either be in a frame with a capacity of 2 sheet films or in a magazine with a higher capacity. This magazine is the filmpack. <br><br>The advantage with this format is that they had a lighter substitute for the heavier and more fragile glass sheets.',
         id_poi: 7,
         id_lang: 2,
       },
@@ -252,7 +252,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'Aerial photography has long been a challenge. The first ones were made during a balloon flight by Nadar in 1858. A few decades later, another special idea was put into practice. A special camera that could be carried by pigeons. Originally used to monitor the route taken by travellers who had to deliver messages. Julius Neubronner developed a second camera: The Doppel-Sport. An impressive design that could take curved panoramic pictures of 3x8cm. All this thanks to a revolving lens which also has a delayed shutter release.',
+          'Aerial photography has long been a challenge. The first ones were made during a balloon flight by Nadar in 1858. <br><br>A few decades later, another special idea was put into practice. A special camera that could be carried by pigeons. Originally used to monitor the route taken by travellers who had to deliver messages. <br><br>Julius Neubronner developed a second camera: The Doppel-Sport. An impressive design that could take curved panoramic pictures of 3x8cm. All this thanks to a revolving lens which also has a delayed shutter release.',
         id_poi: 8,
         id_lang: 2,
       },
@@ -265,7 +265,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'Over the years, the camera has continued to improve and revolutionise its use. The most striking one is that linked to mobile phones. Photography is now in a new phase: the culture of the moment by privileging the short time of communication, promoting the instantaneous. Now even more thanks to smartphones, this market has almost wiped out the digital camera market.',
+          'Over the years, the camera has continued to improve and revolutionise its use. The most striking one is that linked to mobile phones. <br><br>Photography is now in a new phase: the culture of the moment by privileging the short time of communication, promoting the instantaneous. <br><br>Now even more thanks to smartphones, this market has almost wiped out the digital camera market.',
         id_poi: 9,
         id_lang: 2,
       },
@@ -279,7 +279,7 @@ export default class TranslationSeeder extends BaseSeeder {
       {
         key: 'description',
         value:
-          'This object is called a "Wafer". It contains 3 sensors (the 3 squares), around which circuits are placed. The whole thing will then be cut up to be installed in a photographic instrument. The centre square is 61.4mm long and contains 4096 lines, each with 4096 photoreceptors of 15 microns in size. The other two squares are 30.72mm and therefore have a capacity of 2048x2048 photoreceptors.',
+          'This object is called a "Wafer". It contains 3 sensors (the 3 squares), around which circuits are placed. <br><br>The whole thing will then be cut up to be installed in a photographic instrument. The centre square is 61.4mm long and contains 4096 lines, each with 4096 photoreceptors of 15 microns in size. The other two squares are 30.72mm and therefore have a capacity of 2048x2048 photoreceptors.',
         id_poi: 10,
         id_lang: 2,
       },
