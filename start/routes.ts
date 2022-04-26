@@ -63,7 +63,3 @@ Route.resource('/translations', 'TranslationsController')
 
 // /!\ DEBUG /!\ À SUPPRIMER AVANT DEPLOY /!\
 Route.post('/pois/prediction/debug', 'PoisController.getPredictionDebug');
-
-// Route.get('*', () => {
-//   return 'Toutes les routes mènent à Denis, mais pas celle-ci! ¯\\_(ツ)_/¯  ';
-// });
