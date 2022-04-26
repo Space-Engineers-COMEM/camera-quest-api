@@ -11,7 +11,7 @@ export default class Pois extends BaseSchema {
       table.string('manufacturer').notNullable();
       table.string('periode').notNullable();
       table.boolean('archived').notNullable();
-      table.integer('area').unsigned().references('floors.id').onDelete('CASCADE');
+      table.integer('area').notNullable();
       table.string('image_url').notNullable();
       table.string('image_name').notNullable();
       table.string('location').notNullable();
