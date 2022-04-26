@@ -104,7 +104,7 @@ export default class TranslationSeeder extends BaseSeeder {
       },
       {
         key: 'subtitle',
-        value: ' ',
+        value: '',
         id_poi: 8,
         id_lang: 1,
       },
@@ -117,7 +117,7 @@ export default class TranslationSeeder extends BaseSeeder {
       },
       {
         key: 'subtitle',
-        value: ' ',
+        value: '',
         id_poi: 9,
         id_lang: 1,
       },
