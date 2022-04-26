@@ -148,6 +148,7 @@ export default class PoisController {
   public async destroy({ params, response }) {
     try {
       const poi = await Poi.findOrFail(params.id);
+      console.log('ici' + Drive.exists('images/' + poi.image_name));
       if (!(await Drive.exists(`images/${poi.image_name}`))) {
         return response.badRequest({
           type: 'error',
@@ -224,6 +225,7 @@ export default class PoisController {
 
     // Get the prediction
     const predictionResponse = await this.callPredictionApi(file);
+    console.log(predictionResponse);
 
     // Check if the prediction was successful
     if (predictionResponse.predictions[0].probability < MIN_PROBABILITY) {
