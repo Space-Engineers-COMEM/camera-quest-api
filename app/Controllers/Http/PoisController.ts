@@ -237,7 +237,7 @@ export default class PoisController {
       // Return the POI from the prediction and all its data
       const exhibitionNumber = predictionResponse.predictions[0].tagName.split('_')[0];
       const poi = await Poi.findByOrFail('exhibition_number', exhibitionNumber);
-
+      console.log(poi);
       const data = await this.getPreview(poi.id);
 
       return response.status(data.status).json({
