@@ -61,5 +61,5 @@ Route.resource('/translations', 'TranslationsController')
   .only(['index', 'store', 'update', 'destroy', 'show'])
   .apiOnly();
 
-// /!\ DEBUG /!\ À SUPPRIMER AVANT DEPLOY /!\
+// /!\ DEBUG /!\ À SUPPRIMER AVANT DEPLOY
 Route.post('/pois/prediction/debug', 'PoisController.getPredictionDebug');
