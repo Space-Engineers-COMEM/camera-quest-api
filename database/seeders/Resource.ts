@@ -11,14 +11,14 @@ export default class ResourceSeeder extends BaseSeeder {
         id_lang: 1,
       },
       {
-        url: 'https://api.cameramuseum.app/audios/Collodion_final.mp3',
-        name: 'Collodion_final.mp3',
+        url: 'https://api.cameramuseum.app/audios/FamilleChevalier_final.mp3',
+        name: 'FamilleChevalier_final.mp3',
         id_poi: 2,
         id_lang: 1,
       },
       {
-        url: 'https://api.cameramuseum.app/audios/FamilleChevalier_final.mp3',
-        name: 'FamilleChevalier_final.mp3',
+        url: 'https://api.cameramuseum.app/audios/Collodion_final.mp3',
+        name: 'Collodion_final.mp3',
         id_poi: 3,
         id_lang: 1,
       },
