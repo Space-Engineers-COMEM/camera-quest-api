@@ -148,6 +148,7 @@ export default class PoisController {
   public async destroy({ params, response }) {
     try {
       const poi = await Poi.findOrFail(params.id);
+      console.log('ici' + Drive.exists('images/' + poi.image_name));
       if (!(await Drive.exists(`images/${poi.image_name}`))) {
         return response.badRequest({
           type: 'error',
@@ -224,6 +225,7 @@ export default class PoisController {
 
     // Get the prediction
     const predictionResponse = await this.callPredictionApi(file);
+    console.log(predictionResponse);
 
     // Check if the prediction was successful
     if (predictionResponse.predictions[0].probability < MIN_PROBABILITY) {
@@ -235,7 +237,7 @@ export default class PoisController {
       // Return the POI from the prediction and all its data
       const exhibitionNumber = predictionResponse.predictions[0].tagName.split('_')[0];
       const poi = await Poi.findByOrFail('exhibition_number', exhibitionNumber);
-
+      console.log(poi);
       const data = await this.getPreview(poi.id);
 
       return response.status(data.status).json({

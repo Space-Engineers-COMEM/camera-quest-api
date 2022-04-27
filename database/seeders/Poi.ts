@@ -77,7 +77,7 @@ export default class PoisSeeder extends BaseSeeder {
         manufacturer: 'John Carbutt',
         periode: '~1884',
         archived: false,
-        image_url: 'https://api.cameramuseum.app/images/199_filmpack.JPG',
+        image_url: 'https://api.cameramuseum.app/images/309_filmpack.jpg',
         image_name: '309_filmpack.JPG',
         location: 'Angleterre',
       },
